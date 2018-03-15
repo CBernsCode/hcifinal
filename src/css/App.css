@@ -9,9 +9,12 @@
 
 .App-header {
   background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+  height: 10vh;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #fff;
 }
 
 .App-title {
@@ -22,21 +25,37 @@
   font-size: large;
 }
 
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
 #editor {
-  border: 1px solid blue;
+  margin-bottom: 50px;
+  padding-left: 0;
+  border: #222 1px solid;
 }
+
 #scene {
-  height: 900px;
-  border: 1px solid red;
+  height: 90vh;
+  border: #222 1px solid;
 }
+
 a-scene {
   height: 100% !important;
 }
 
+a-scene[aframe-inspector-removed-embedded] {
+  width: 100vh;
+  left: -30%;
+}
 .ace-github .ace_print-margin {
   background: #fff !important;
+}
+
+#sidebar, .components{
+  width: 400px !important;
+}
+
+.components .row{
+  margin-left: 5px;
+}
+
+.params {
+  margin-bottom: 1em;
 }

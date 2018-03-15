@@ -7,13 +7,15 @@
     "redux-devtools": "^3.4.1"
   },
   "dependencies": {
-    "aframe": "^0.7.1",
-    "aframe-react": "^4.4.0",
+    "aframe": "^0.8.0",
+    "aframe-animation-component": "^4.1.1",
+    "aframe-ui-widgets": "^1.0.2",
     "bootstrap": "3",
     "react": "^16.2.0",
     "react-ace": "^5.9.0",
     "react-bootstrap": "^0.32.1",
     "react-dom": "^16.2.0",
+    "react-form": "^3.3.2",
     "react-redux": "^5.0.7",
     "redux": "^3.7.2"
   },

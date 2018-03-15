@@ -1,48 +1,54 @@
-import React, { Component } from 'react';
-import AceEditor from 'react-ace';
-import PropTypes from 'prop-types'
-import View from './View'
+import React, { Component } from 'react'
+import AceEditor from 'react-ace'
+import Display from './Display'
+import CurvedImg from './CurvedImg'
 
-import 'brace/mode/javascript';
-import 'brace/theme/github';
+import 'brace/mode/json'
+import 'brace/theme/github'
 
 export default class Editor extends Component {
-
   remove = () => {
-    let el = document.querySelector('a-scene')
-    if(el){
-      document.querySelector('#scene').removeChild(el);
-    }
+    this.props.actions.clear()
   }
   handleSave = () => {
     const content = this.refs.aceEditor.editor.session.getValue()
-    this.props.actions.render(content)
-    this.setState({text: content})
+    this.props.actions.refresh(content)
+    this.setState({ text: content })
   }
+  buttons = () => {
+    return (
+      <div className="btn-group pull-left" role="group" aria-label="...">
+        <div className="btn-group" role="group">
+          <button type="button" className="btn btn-success" onClick={this.handleSave}>Render Scene</button>
+        </div>
+        <div className="btn-group" role="group">
+          <button type="button" className="btn btn-default">Generate Random</button>
+        </div>
+        <div className="btn-group" role="group" onClick={this.remove}>
+          <button type="button" className="btn btn-danger"> Clear Scene</button>
+        </div>
+      </div>
+    )
+  }
+
   render() {
-    const text = this.props.text
+    let text = this.props.text
     return (
       <div id="editor" className="col-lg-4">
         <AceEditor
           ref="aceEditor"
           width="100%"
-          mode="javascript"
+          mode="json"
           theme="github"
-          // onChange={this.onChange}
           value={text}
           name="ace-editor"
+          enableBasicAutocompletion={true}
+          enableLiveAutocompletion={true}
+          wrapEnabled={true}
         />
-        <div className="btn-group pull-left" role="group" aria-label="...">
-          <div className="btn-group" role="group">
-            <button type="button" className="btn btn-success"  onClick={this.handleSave}>Render Scene</button>
-          </div>
-          <div className="btn-group" role="group">
-            <button type="button" className="btn btn-default">Generate Random</button>
-          </div>
-          <div className="btn-group" role="group" onClick={this.remove}>
-            <button type="button" className="btn btn-danger"> Clear Scene</button>
-          </div>
-        </div>
+        <Display render={this.props.actions.render} />
+        <CurvedImg render={this.props.actions.render} />
+        {this.buttons()}
       </div>
     );
   }

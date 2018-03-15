@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Editor  from '../components/Editor';
 import View from '../components/View';
-import * as EditorActions from '../actions'
+import {render, refresh, clear} from '../actions'
 import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -26,11 +26,11 @@ App.propTypes = {
 
 const mapStateToProps = state => ({
   text: state.editor.text,
-  objects: state.editor.objects
+  objects: state.editor.objs
 })
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(EditorActions, dispatch)
+  actions: bindActionCreators({render,refresh, clear}, dispatch)
 })
 
 
