@@ -94,7 +94,7 @@ class CurvedImg extends Component {
       })
     )
   }
-  exampleForm() {
+  curvedForm() {
     return (
       <div>
         <Modal show={this.state.show} onHide={this.handleClose}>
@@ -123,11 +123,11 @@ class CurvedImg extends Component {
   }
   render() {
     return (
-      <div id="curved-ui col-md-6">
+      <div id="curved-ui" className="btn-group" >
         <Button bsStyle="primary" onClick={this.handleShow}>
           Add a Cuved Img
         </Button>
-        {this.exampleForm()}
+        {this.curvedForm()}
       </div>
     )
   }

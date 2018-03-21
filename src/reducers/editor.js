@@ -4,8 +4,7 @@ var entityModel = [
       primitive: "box"
     },
     material: "color: red",
-    position: "0 0 -2",
-    animation: "property: position; dir: alternate; dur: 1000;easing: easeInSine; loop: true; to: 0 2 -2"
+    position: "0 0 -2"
   }
 ]
 
@@ -18,15 +17,19 @@ export default function scene(state = initial_state, action) {
   switch (action.type) {
     case 'EDITOR_RENDER':
       var newObjs = state.objs.concat(action.obj)
-      let newText = JSON.stringify(newObjs, null, "  ")
+      var newText = JSON.stringify(newObjs, null, "  ")
       return {
+        ...state,
         text: newText,
         objs: newObjs
       }
     case 'EDITOR_REFRESH':
+      // eslint-disable-next-line     
       var newObjs = JSON.parse(action.text)
+      // eslint-disable-next-line     
       var newText = JSON.stringify(newObjs, null, "  ")
       return {
+        ...state,
         text: newText,
         objs: newObjs
       }

@@ -6,14 +6,14 @@ import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-const App = ({text, objects, actions}) => (
+const App = ({text, objects, base, actions}) => (
   <div className="App">
     <header className="App-header">
-     <h1 className="App-title">Welcome to React</h1>
+     <h1 className="App-title">Welcome to React</h1>   
     </header>
     <div>
       <Editor text={text} actions={actions} />
-      <View text={text} objects={objects} />
+      <View text={text}  objects={objects} />
     </div>
   </div>
 )
@@ -26,6 +26,7 @@ App.propTypes = {
 
 const mapStateToProps = state => ({
   text: state.editor.text,
+  base: state.editor.base,
   objects: state.editor.objs
 })
 

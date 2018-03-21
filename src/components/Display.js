@@ -19,13 +19,14 @@ class Display extends Component {
     let vals = this.state.submittedValues
     if (Object.keys(this.state.submittedValues).length !== 0) {
       let newObj = {
-        geometry:{
+        geometry: {
           primitive: 'box',
         },
-        material:  `color: ${vals.color ? vals.color : "#ff8800"}; opacity: ${vals.opacity ? vals.opacity : "1"};`,
-        position: vals.position ? vals.position: '0 0 0',
+        material: `color: ${vals.color ? vals.color : "#ff8800"}; ` +
+          `opacity: ${vals.opacity ? vals.opacity : "1"};`,
+        position: vals.position ? vals.position : '0 0 0',
         scale: vals.scale ? `${vals.scale} .01` : '1 1 .01',
-        rotation: vals.rotation ? vals.rotation: '0 0 0',
+        rotation: vals.rotation ? vals.rotation : '0 0 0',
         opacity: vals.opacity ? vals.opacity : "1"
       }
       window.display = newObj
@@ -87,7 +88,7 @@ class Display extends Component {
       })
     )
   }
-  exampleForm() {
+  displayForm() {
     return (
       <div>
         <Modal show={this.state.show} onHide={this.handleClose}>
@@ -104,7 +105,7 @@ class Display extends Component {
                 <form onSubmit={formApi.submitForm} id="text-input-form">
                   <div className="form-group">
                     {this.renderParams()}
-                    <hr/>
+                    <hr />
                     <Button type="submit" className="btn btn-primary btn-block">Submit</Button>
                     <Button onClick={formApi.resetAll} className="btn btn-danger btn-block">Clear</Button>
                   </div>
@@ -118,11 +119,11 @@ class Display extends Component {
   }
   render() {
     return (
-      <div id="display-ui  col-md-6">
+      <div id="display-ui" className="btn-group" role="group">
         <Button bsStyle="primary" onClick={this.handleShow}>
           Add Display Object
         </Button>
-        {this.exampleForm()}
+        {this.displayForm()}
       </div>
     )
   }
