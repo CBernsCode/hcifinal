@@ -1,8 +1,6 @@
 var entityModel = [
   {
-    geometry: {
-      primitive: "box"
-    },
+    geometry: "primitive: box",
     material: "color: red",
     position: "0 0 -2"
   }
@@ -26,6 +24,7 @@ export default function scene(state = initial_state, action) {
     case 'EDITOR_REFRESH':
       // eslint-disable-next-line     
       var newObjs = JSON.parse(action.text)
+      console.log(newObjs)
       // eslint-disable-next-line     
       var newText = JSON.stringify(newObjs, null, "  ")
       return {

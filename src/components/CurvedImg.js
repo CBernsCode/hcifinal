@@ -20,9 +20,7 @@ class CurvedImg extends Component {
     let vals = this.state.submittedValues
     if (Object.keys(this.state.submittedValues).length !== 0) {
       let newObj = {
-        geometry:{
-          primitive: "curvedimage",
-        },
+        geometry: "primative: curvedimage",
         position: vals.position ? vals.position: "0 0 0",
         scale: vals.scale ? vals.scale: "1 1 1",
         rotation: vals.rotation,

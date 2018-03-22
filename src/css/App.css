@@ -6,6 +6,7 @@ body {
 
 .App {
   text-align: center;
+  margin: 0 2em;
 }
 
 .App-logo {
@@ -16,7 +17,7 @@ body {
 .App-header {
   background-color: #222;
   height: 10vh;
-  padding: 8px;
+  padding: 12px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -70,4 +71,8 @@ button.btn {
   overflow: hidden;
   text-overflow: ellipsis;
   padding: 2px 0;
+  margin: 4px;
+}
+.btn-group{
+  margin: 2px 10px;
 }

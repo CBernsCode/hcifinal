@@ -7,9 +7,7 @@ class Display extends Component {
     super();
     this.state = {
       id: 0,
-      show: false,
-      submittedValues: {},
-      prevValues: []
+      show: false
     }
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
@@ -19,9 +17,7 @@ class Display extends Component {
     let vals = this.state.submittedValues
     if (Object.keys(this.state.submittedValues).length !== 0) {
       let newObj = {
-        geometry: {
-          primitive: 'box',
-        },
+        geometry: "primative: box",
         material: `color: ${vals.color ? vals.color : "#ff8800"}; ` +
           `opacity: ${vals.opacity ? vals.opacity : "1"};`,
         position: vals.position ? vals.position : '0 0 0',
@@ -119,7 +115,7 @@ class Display extends Component {
   }
   render() {
     return (
-      <div id="display-ui" className="btn-group" role="group">
+      <div id="display-ui" className="btn-group">
         <Button bsStyle="primary" onClick={this.handleShow}>
           Add Display Object
         </Button>

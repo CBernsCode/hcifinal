@@ -70,7 +70,7 @@ export default class Editor extends Component {
     const content = this.refs.aceEditor.editor.session.getValue()
     this.props.actions.refresh(content)
   }
-  buttons = () => {
+  botButtons = () => {
     return (
       <div className="btn-group btn-group-justified" role="group">
         <div className="btn-group" >
@@ -87,6 +87,7 @@ export default class Editor extends Component {
   enviromentChange = (formApi) => {
     var el = document.getElementById('env')
     el.setAttribute('environment', formApi.values.enviroment)
+    el.setAttribute('position' , '0 -1 0')
   }
   enviroment() {
     const enviromentOptions = [
@@ -154,7 +155,7 @@ export default class Editor extends Component {
           enableLiveAutocompletion={true}
           wrapEnabled={true}
         />
-        {this.buttons()}
+        {this.botButtons()}
         {this.enviroment()}
       </div >
     );
