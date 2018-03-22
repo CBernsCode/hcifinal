@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import 'aframe-ui-widgets'
 
 class View extends Component {
   helper(ent, id) {
