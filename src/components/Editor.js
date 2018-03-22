@@ -13,7 +13,7 @@ export default class Editor extends Component {
     this.state = {
       user: null,
       enviroment: "",
-      autoReload: true
+      autoReload: false
     }
   }
   componentDidMount() {
@@ -25,7 +25,10 @@ export default class Editor extends Component {
           let renderFun = this.props.actions.refresh
           const itemsRef = firebase.database().ref(this.state.user.uid);
           itemsRef.on('value', (snapshot) => {
-            renderFun(snapshot.val())
+            let val = snapshot.val()
+            if(val){
+              renderFun(val)
+            }
           })
         }
       }
