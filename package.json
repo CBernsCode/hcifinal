@@ -7,6 +7,7 @@
     "redux-devtools": "^3.4.1"
   },
   "dependencies": {
+    "module": "./node_modules/aframe/dist/aframe-master.js.map",
     "aframe": "^0.8.0",
     "aframe-animation-component": "^4.1.1",
     "aframe-environment-component": "^1.0.0",
