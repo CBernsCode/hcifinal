@@ -20,7 +20,7 @@
     "react-form": "^3.3.2",
     "react-redux": "^5.0.7",
     "redux": "^3.7.2",
-    "module": "./node_modules/aframe/dist/aframe-master.js.map",
+    "module": "./node_modules/aframe/dist/aframe-master.js.map"
   },
   "scripts": {
     "start": "react-scripts start",
