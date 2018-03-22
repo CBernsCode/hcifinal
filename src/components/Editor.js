@@ -45,13 +45,13 @@ export default class Editor extends Component {
     });
   }
   handleSave = (e) => {
-    console.log(this.state.user)
-    console.log(this.props.text)
     e.preventDefault();
+    const content = this.refs.aceEditor.editor.session.getValue()
     if (this.state.user) {
       const itemRef = firebase.database().ref(this.state.user.uid);
-      itemRef.set(this.props.text)
+      itemRef.set(content)
     }
+    this.props.actions.refresh(content)
   }
   loadScene = () => {
     let renderFun = this.props.actions.refresh

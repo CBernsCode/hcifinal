@@ -9,7 +9,7 @@ import { connect } from 'react-redux'
 const App = ({text, objects, base, actions}) => (
   <div className="App">
     <header className="App-header">
-     <h1 className="App-title">Welcome to React</h1>   
+     <h1 className="App-title">Proto Star</h1>   
     </header>
     <div>
       <Editor text={text} actions={actions} />
