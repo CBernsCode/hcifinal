@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Form, Text} from 'react-form';
 import { Button, Modal } from 'react-bootstrap';
 
-class CurvedImg extends Component {
+class PSCurvedImg extends Component {
   constructor() {
     super();
     this.state = {
@@ -131,4 +131,4 @@ class CurvedImg extends Component {
   }
 }
 
-export default CurvedImg
+export default PSCurvedImg

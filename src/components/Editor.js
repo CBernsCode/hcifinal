@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import AceEditor from 'react-ace'
-import Display from './Display'
-import CurvedImg from './CurvedImg'
+import PSDisplay from './Display'
+import PSCurvedImg from './CurvedImg'
+import PSText from './Text'
 import { Form, Select } from 'react-form';
+import { Glyphicon } from 'react-bootstrap'
 import 'brace/mode/json'
 import 'brace/theme/github'
 import firebase, { auth, provider } from '../containers/firebase.js';
@@ -17,7 +19,6 @@ export default class Editor extends Component {
     }
   }
   componentDidMount() {
-    this.setState({ text: this.props.text });
     auth.onAuthStateChanged((user) => {
       if (user) {
         this.setState({ user });
@@ -26,7 +27,7 @@ export default class Editor extends Component {
           const itemsRef = firebase.database().ref(this.state.user.uid);
           itemsRef.on('value', (snapshot) => {
             let val = snapshot.val()
-            if(val){
+            if (val) {
               renderFun(val)
             }
           })
@@ -36,9 +37,7 @@ export default class Editor extends Component {
   }
   logout = () => {
     auth.signOut().then(() => {
-      this.setState({
-        user: null
-      });
+      this.setState({ user: null });
     });
   }
   login = () => {
@@ -56,15 +55,14 @@ export default class Editor extends Component {
     }
     this.props.actions.refresh(content)
   }
-  loadScene = () => {
-    let renderFun = this.props.actions.refresh
-    if (this.state.user) {
+  sync = () => {
+    this.setState({ autoReload: !this.state.autoReload })
+    if (!this.state.autoReload && this.state.user) {
+      let renderFun = this.props.actions.refresh
       firebase.database().ref(this.state.user.uid).once('value')
         .then(function (snapshot) { renderFun(snapshot.val()) })
+      console.log("works")
     }
-  }
-  lockScene = () => {
-    this.setState({ autoReload: !this.state.autoReload })
   }
   remove = () => {
     this.props.actions.clear()
@@ -82,15 +80,17 @@ export default class Editor extends Component {
         <div className="btn-group" >
           <button onClick={this.remove} type="button" className="btn btn-danger"> Clear Scene</button>
         </div>
-        <Display render={this.props.actions.render} />
-        <CurvedImg render={this.props.actions.render} />
+        <PSDisplay render={this.props.actions.render} />
+        <PSCurvedImg render={this.props.actions.render} />
+        <PSText render={this.props.actions.render} />
       </div>
     )
   }
   enviromentChange = (formApi) => {
     var el = document.getElementById('env')
+    // To-Do: refactor out
     el.setAttribute('environment', formApi.values.enviroment)
-    el.setAttribute('position' , '0 -1 0')
+    el.setAttribute('position', '0 -1 0')
   }
   enviroment() {
     const enviromentOptions = [
@@ -125,25 +125,25 @@ export default class Editor extends Component {
       </div >
     )
   }
-
   render() {
-    let text = this.props.text
     return (
       <div id="editor" className="col-lg-4">
         <div className="btn-group btn-group-justified" role="group">
           <div className="btn-group" >
-            <button onClick={this.handleSave} type="button" className="btn btn-primary">Save</button>
+            <button onClick={this.handleSave} type="button" className="btn btn-primary">
+              <Glyphicon glyph="floppy-open" /> Upload </button>
           </div>
           <div className="btn-group" >
-            <button onClick={this.loadScene} type="button" className="btn btn-primary">Load</button>
+            <button onClick={this.sync} type="button" className={"btn btn-primary " + (this.state.autoReload ? "active" : "")}>
+              <Glyphicon glyph="refresh" /> Sync</button>
           </div>
           <div className="btn-group" >
-            <button onClick={this.lockScene} type="button"
-              className={"btn btn-primary " + (this.state.autoReload ? "active" : "")}>Lock</button>
-          </div>
-          <div className="btn-group" >
-            {this.state.user ? <button className="btn btn-primary" onClick={this.logout}>Log Out</button>
-              : <button className="btn btn-primary" onClick={this.login}>Log In</button>
+            {this.state.user
+              ? <button className="btn btn-primary" onClick={this.logout}>
+                <img width={20} height={18} src={this.state.user.photoURL} alt="thumbnail" />  Log Out
+                </button>
+              : <button className="btn btn-primary" onClick={this.login}>
+                <Glyphicon glyph="user" /> Log In</button>
             }
           </div>
         </div>
@@ -152,7 +152,7 @@ export default class Editor extends Component {
           width="100%"
           mode="json"
           theme="github"
-          value={text}
+          value={this.props.text}
           name="ace-editor"
           enableBasicAutocompletion={true}
           enableLiveAutocompletion={true}

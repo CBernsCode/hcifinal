@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Form, Text } from 'react-form';
 import { Button, Modal } from 'react-bootstrap';
 
-class PSDisplay extends Component {
+class PSText extends Component {
   constructor() {
     super();
     this.state = {
@@ -18,22 +18,30 @@ class PSDisplay extends Component {
     if (Object.keys(this.state.submittedValues).length !== 0) {
       let newObj = {
         geometry: {
-          primative: "box"
+          primative: "plane",
+          width: "auto",
+          height: "auto"
         },
         material: {
           color: vals.color ? vals.color : "#ff8800",
-          opacity: vals.opacity ? vals.opacity : "1",
+          opacity: vals.opacity ? vals.opacity : "0",
         },
         position: {
-          x: vals.xpos ? vals.xpos : 0,
-          y: vals.ypos ? vals.ypos : 0,
-          z: vals.dist ? vals.dist : 0,
+          x: vals.xpos ? vals.xpos : 1,
+          y: vals.ypos ? vals.ypos : 1,
+          z: vals.dist ? vals.dist : -1,
         },
         xdimm: vals.xdimm ? vals.xdimm : 100,
         ydimm: vals.ydimm ? vals.ydimm : 100,
         zdimm: 1,
         dist: 1,
         rotation: vals.rotation ? vals.rotation : "0 0 0",
+        text: {
+          color: "#000",
+          align: vals.align ? vals.align : "left",
+          value: vals.value ? vals.value : "Hello World!",
+          zOffset: 1,
+        },
       }
       window.display = newObj
       var arr = this.state.prevValues.concat(newObj)
@@ -88,16 +96,30 @@ class PSDisplay extends Component {
         tip: "X Y Z like '1 2 3'"
       },
       {
-        text: "Color",
-        target: "color",
-        tip: "'red' or '#ff8800'"
+        text: "align",
+        target: "align",
+        tip: "align"
       },
       {
-        text: "Opacity",
-        target: "opacity",
-        tip: "0 - 1"
+        text: "color",
+        target: "color",
+        tip: "color"
       },
-
+      {
+        text: "opacity",
+        target: "opacity",
+        tip: "opacity"
+      },
+      {
+        text: "value",
+        target: "value",
+        tip: "value"
+      },
+      {
+        text: "side",
+        target: "side",
+        tip: "side"
+      },
     ]
     return (
       params.map((x, index) => {
@@ -115,8 +137,8 @@ class PSDisplay extends Component {
       <div>
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Add a Display</Modal.Title>
-            Displays are flat panel representations of screens
+            <Modal.Title>Add Text</Modal.Title>
+            Add text
           </Modal.Header>
           <Modal.Body>
             <Form onSubmit={submittedValues => {
@@ -141,9 +163,9 @@ class PSDisplay extends Component {
   }
   render() {
     return (
-      <div id="display-ui" className="btn-group">
+      <div id="text-ui" className="btn-group">
         <Button bsStyle="primary" onClick={this.handleShow}>
-          Add Display Object
+          Add Text
         </Button>
         {this.displayForm()}
       </div>
@@ -151,4 +173,4 @@ class PSDisplay extends Component {
   }
 }
 
-export default PSDisplay
+export default PSText
