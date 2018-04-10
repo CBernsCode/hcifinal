@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Text} from 'react-form';
+import { Form, Text } from 'react-form';
 import { Button, Modal } from 'react-bootstrap';
 
 class PSCurvedImg extends Component {
@@ -11,82 +11,93 @@ class PSCurvedImg extends Component {
       submittedValues: {},
       prevValues: []
     }
-    this.handleShow = this.handleShow.bind(this);
-    this.handleClose = this.handleClose.bind(this);
   }
 
-  handleClose() {
+  handleClose = () => {
     this.setState({ show: false });
     let vals = this.state.submittedValues
     if (Object.keys(this.state.submittedValues).length !== 0) {
       let newObj = {
-        geometry: "primative: curvedimage",
-        position: vals.position ? vals.position: "0 0 0",
-        scale: vals.scale ? vals.scale: "1 1 1",
+        primitive: 'a-curvedimage',
+        material: {
+          color: vals.color ? vals.color : "#888",
+          opacity: vals.opacity ? vals.opacity : "1",
+        },
+        position: vals.position ? vals.position : '0 0 0',
+        scale: vals.scale ? vals.scale : '1 1 1',
         rotation: vals.rotation,
-        height: vals.height ? vals.height: "1",
-        src: vals.src ? vals.src: process.env.PUBLIC_URL + '/img/landscape.jpg',
+        height: vals.height ? vals.height : '1',
+        src: vals.src ? vals.src : "",
         radius: vals.radius ? vals.radius : 2,
-        opacity: vals.opacity ? vals.opacity : "1",
-        transparent: false
+        transparent: false,
+        'theta-length': 180,
+        'theta-start': 90
+
       }
-      window.curve = newObj
-      var arr = this.state.prevValues.concat(newObj)
+      // var arr = this.state.prevValues.concat(newObj)
       this.props.render(JSON.stringify(this.state.submittedValues), newObj)
       this.setState({
-        prevValues: arr,
+        // prevValues: arr,
         submittedValues: {}
       })
     }
   }
-  handleShow() {
+  handleShow = () => {
     this.setState({ show: true });
   }
   renderParams() {
     const params = [
       {
-        text: "Position",
-        target: "position",
-        tip: "X Y Z like '1 1 -3'"
+        text: 'Position',
+        target: 'position',
+        tip: `X Y Z like '1 1 -3'`
       },
       {
-        text: "Rotation",
-        target: "rotation",
-        tip: "X Y Z like '1 2 3'"
+        text: 'Rotation',
+        target: 'rotation',
+        tip: `X Y Z like '1 2 3'`
       },
       {
-        text: "Scale",
-        target: "scale",
-        tip: "X Y like '1 2'"
+        text: 'Scale',
+        target: 'scale',
+        tip: `X Y like '1 2'`
       },
       {
-        text: "color",
-        target: "color",
-        tip: "'red' or '#ff8800'"
+        text: 'color',
+        target: 'color',
+        tip: `'red' or '#ff8800'`
       },
       {
-        text: "Height",
-        target: "height"
+        text: 'Height',
+        target: 'height'
       },
       {
-        text: "Opacity",
-        target: "opacity"
+        text: 'Opacity',
+        target: 'opacity'
       },
       {
-        text: "Radius",
-        target: "radius"
+        text: 'Radius',
+        target: 'radius'
       },
       {
-        text: "Src",
-        target: "src"
-      }
+        text: 'Src',
+        target: 'src'
+      },
+      {
+        text: 'Theta Length',
+        target: 'theta-length'
+      },
+      {
+        text: 'Theta Start',
+        target: 'theta-start'
+      },
     ]
     return (
       params.map((x, index) => {
         return (
-          <div key={index} className="col-xs-6 params">
-            <label htmlFor={`text-input-${x.target}`} className="col-xs-5">{x.text}</label>
-            <Text field={x.target} placeholder={x.tip} id={`text-input-${x.target}`} className="col-xs-7" />
+          <div key={index} className='col-xs-6 params'>
+            <label htmlFor={`text-input-${x.target}`} className='col-xs-5'>{x.text}</label>
+            <Text field={x.target} placeholder={x.tip} id={`text-input-${x.target}`} className='col-xs-7' />
           </div>
         )
       })
@@ -106,11 +117,13 @@ class PSCurvedImg extends Component {
               this.handleClose()
             }}>
               {formApi => (
-                <form onSubmit={formApi.submitForm} id="text-input-form">
-                  {this.renderParams()}
-                  <hr/>
-                  <Button type="submit" className="btn btn-primary btn-block">Submit</Button>
-                  <Button onClick={formApi.resetAll} className="btn btn-danger btn-block">Clear</Button>
+                <form onSubmit={formApi.submitForm} id='text-input-form'>
+                  <div className='form-group'>
+                    {this.renderParams()}
+                    <hr />
+                    <Button type='submit' className='btn btn-primary btn-block'>Submit</Button>
+                    <Button onClick={formApi.resetAll} className='btn btn-danger btn-block'>Clear</Button>
+                  </div>
                 </form>
               )}
             </Form>
@@ -121,8 +134,8 @@ class PSCurvedImg extends Component {
   }
   render() {
     return (
-      <div id="curved-ui" className="btn-group" >
-        <Button bsStyle="primary" onClick={this.handleShow}>
+      <div id='curved-ui' className='btn-group' >
+        <Button bsStyle='primary' onClick={this.handleShow}>
           Add a Cuved Img
         </Button>
         {this.curvedForm()}

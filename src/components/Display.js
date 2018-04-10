@@ -13,12 +13,12 @@ class PSDisplay extends Component {
     }
   }
   handleClose = () => {
-    this.setState({show: false})
+    this.setState({ show: false })
     let vals = this.state.submittedValues
     if (Object.keys(this.state.submittedValues).length !== 0) {
       let newObj = {
         geometry: {
-          primative: "box"
+          primitive: "box"
         },
         material: {
           color: vals.color ? vals.color : "#ff8800",
@@ -27,15 +27,13 @@ class PSDisplay extends Component {
         position: {
           x: vals.xpos ? vals.xpos : 0,
           y: vals.ypos ? vals.ypos : 0,
-          z: vals.dist ? vals.dist : 0,
+          z: vals.dist ? vals.dist : 1,
         },
         xdimm: vals.xdimm ? vals.xdimm : 100,
         ydimm: vals.ydimm ? vals.ydimm : 100,
         zdimm: 1,
-        dist: 1,
         rotation: vals.rotation ? vals.rotation : "0 0 0",
       }
-      window.display = newObj
       var arr = this.state.prevValues.concat(newObj)
       this.props.render(JSON.stringify(this.state.submittedValues), newObj)
       this.setState({
@@ -76,11 +74,6 @@ class PSDisplay extends Component {
         text: "Y-dimm",
         target: "ydimm",
         tip: "scaled units"
-      },
-      {
-        text: "Distance From Origin",
-        target: "dist",
-        tip: "in meters"
       },
       {
         text: "Rotation",

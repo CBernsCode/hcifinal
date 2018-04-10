@@ -6,12 +6,17 @@ body {
 
 .App {
   text-align: center;
-  margin: 0 2em;
+  /* margin: 0 2em; */
 }
 
 .App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+  animation: App-logo-spin forwards 1s linear;
+  height: 40px;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 .App-header {
@@ -20,12 +25,13 @@ body {
   padding: 12px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: start;
   color: #fff;
 }
 
 .App-title {
   font-size: 1.5em;
+  margin-left: 1em;
 }
 
 .App-intro {
@@ -33,14 +39,12 @@ body {
 }
 
 #editor {
-  margin-bottom: 50px;
-  padding-left: 0;
-  border: #222 1px solid;
+  /* border: #222 1px solid; */
 }
 
 #scene {
   height: 90vh;
-  border: #222 1px solid;
+  /* border: #222 1px solid; */
 }
 
 a-scene {
@@ -74,5 +78,5 @@ button.btn {
   margin: 4px;
 }
 .btn-group{
-  margin: 2px 10px;
+  margin: 2px;
 }

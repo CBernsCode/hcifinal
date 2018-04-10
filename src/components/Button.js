@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Form, Text } from 'react-form';
 import { Button, Modal } from 'react-bootstrap';
 
-class PSText extends Component {
+class PSButton extends Component {
   constructor() {
     super();
     this.state = {
@@ -13,16 +13,17 @@ class PSText extends Component {
     }
   }
   handleClose = () => {
-    this.setState({ show: false })
+    this.setState({show: false})
     let vals = this.state.submittedValues
     if (Object.keys(this.state.submittedValues).length !== 0) {
       let newObj = {
         geometry: {
-          primitive: "plane",
-          // width: "0",
-          // height: "0"
+          primative: "plane",
+          width: "auto",
+          height: "auto"
         },
         material: {
+          color: vals.color ? vals.color : "#ff8800",
           opacity: vals.opacity ? vals.opacity : "0",
         },
         position: {
@@ -30,17 +31,26 @@ class PSText extends Component {
           y: vals.ypos ? vals.ypos : 1,
           z: vals.dist ? vals.dist : -1,
         },
-        rotation: vals.rotation ? vals.rotation : "0 0 0",
-        text: {
-          color: vals.color ? vals.color : "#000",
-          align: vals.align ? vals.align : "center",
-          value: vals.value ? vals.value : "Hello World!",
-          zOffset: .01,
+        xdimm: vals.xdimm ? vals.xdimm : 100,
+        ydimm: vals.ydimm ? vals.ydimm : 100,
+        zdimm: vals.zdimm ? vals.zdimm : 100,
+        rotation: vals.rotation ? vals.rotation : "90 0 0",
+        children:{
+          "ui-button": true,
+          material: {
+            color: vals.color ? vals.color : "#ff8800",
+            opacity: vals.opacity ? vals.opacity : "1",
+          },
+          position: {
+            x:  0,
+            y:  0,
+            z: -1,
+          },
           xdimm: vals.xdimm ? vals.xdimm : 100,
           ydimm: vals.ydimm ? vals.ydimm : 100,
-          zdimm: 1,
-          width: vals.width ? vals.width : 10,
-        },
+          zdimm: vals.zdimm ? vals.zdimm : 100,
+          color: vals.color ? vals.color : "#ff0000",
+        }
       }
       window.display = newObj
       var arr = this.state.prevValues.concat(newObj)
@@ -75,19 +85,24 @@ class PSText extends Component {
         tip: "Veritcal Position"
       },
       {
-        text: "width",
-        target: "width",
-        tip: "Text width"
+        text: "Z Position",
+        target: "zpos",
+        tip: "Distance from origin"
+      },
+      {
+        text: "X-dimm",
+        target: "xdimm",
+        tip: "scaled units"
+      },
+      {
+        text: "Y-dimm",
+        target: "ydimm",
+        tip: "scaled units"
       },
       {
         text: "Rotation",
         target: "rotation",
         tip: "X Y Z like '1 2 3'"
-      },
-      {
-        text: "align",
-        target: "align",
-        tip: "align"
       },
       {
         text: "color",
@@ -98,17 +113,7 @@ class PSText extends Component {
         text: "opacity",
         target: "opacity",
         tip: "opacity"
-      },
-      {
-        text: "value",
-        target: "value",
-        tip: "value"
-      },
-      {
-        text: "side",
-        target: "side",
-        tip: "side"
-      },
+      }
     ]
     return (
       params.map((x, index) => {
@@ -152,9 +157,9 @@ class PSText extends Component {
   }
   render() {
     return (
-      <div id="text-ui" className="btn-group">
+      <div id="text-button" className="btn-group">
         <Button bsStyle="primary" onClick={this.handleShow}>
-          Add Text
+          Add Button
         </Button>
         {this.displayForm()}
       </div>
@@ -162,4 +167,4 @@ class PSText extends Component {
   }
 }
 
-export default PSText
+export default PSButton

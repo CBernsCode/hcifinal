@@ -3,6 +3,7 @@ import AceEditor from 'react-ace'
 import PSDisplay from './Display'
 import PSCurvedImg from './CurvedImg'
 import PSText from './Text'
+import PSButton from './Button'
 import { Form, Select } from 'react-form';
 import { Glyphicon } from 'react-bootstrap'
 import 'brace/mode/json'
@@ -14,11 +15,13 @@ export default class Editor extends Component {
     super()
     this.state = {
       user: null,
-      enviroment: "",
-      autoReload: false
+      environment: "",
+      autoReload: true
     }
   }
-  componentDidMount() {
+
+  componentDidMount = () => {
+    this.setState({ text: this.props.text });
     auth.onAuthStateChanged((user) => {
       if (user) {
         this.setState({ user });
@@ -35,17 +38,24 @@ export default class Editor extends Component {
       }
     });
   }
+
+  componentDidUpdate = () => {
+    
+  }
+
   logout = () => {
     auth.signOut().then(() => {
       this.setState({ user: null });
     });
   }
+
   login = () => {
     auth.signInWithPopup(provider).then((result) => {
       const user = result.user;
       this.setState({ user });
     });
   }
+
   handleSave = (e) => {
     e.preventDefault();
     const content = this.refs.aceEditor.editor.session.getValue()
@@ -55,22 +65,53 @@ export default class Editor extends Component {
     }
     this.props.actions.refresh(content)
   }
-  sync = () => {
-    this.setState({ autoReload: !this.state.autoReload })
-    if (!this.state.autoReload && this.state.user) {
-      let renderFun = this.props.actions.refresh
+
+  loadScene = () => {
+    let renderFun = this.props.actions.refresh
+    if (this.state.user) {
       firebase.database().ref(this.state.user.uid).once('value')
         .then(function (snapshot) { renderFun(snapshot.val()) })
-      console.log("works")
     }
   }
+
+  sync = () => {
+    this.setState({ autoReload: !this.state.autoReload })
+    if (this.state.autoReload && this.state.user) {
+      let renderFun = this.props.actions.refresh
+      firebase.database().ref(this.state.user.uid).on('value')
+        .then(function (snapshot) {
+          let val = snapshot.val()
+          if (val) {
+            renderFun(val)
+          }
+        })
+    }
+  }
+
+  lockScene = () => {
+    this.setState({ autoReload: !this.state.autoReload })
+  }
+
   remove = () => {
     this.props.actions.clear()
   }
+
   handleRender = () => {
     const content = this.refs.aceEditor.editor.session.getValue()
     this.props.actions.refresh(content)
   }
+
+  elementButton = () => {
+    return (
+      <div className="btn-group btn-group-justified" role="group">
+        <PSDisplay render={this.props.actions.render} />
+        <PSCurvedImg render={this.props.actions.render} />
+        <PSText render={this.props.actions.render} />
+        <PSButton render={this.props.actions.render} />
+      </div>
+    )
+  }
+
   botButtons = () => {
     return (
       <div className="btn-group btn-group-justified" role="group">
@@ -80,19 +121,18 @@ export default class Editor extends Component {
         <div className="btn-group" >
           <button onClick={this.remove} type="button" className="btn btn-danger"> Clear Scene</button>
         </div>
-        <PSDisplay render={this.props.actions.render} />
-        <PSCurvedImg render={this.props.actions.render} />
-        <PSText render={this.props.actions.render} />
       </div>
     )
   }
-  enviromentChange = (formApi) => {
+
+  environmentChange = (formApi) => {
     var el = document.getElementById('env')
     // To-Do: refactor out
-    el.setAttribute('environment', formApi.values.enviroment)
+    el.setAttribute('environment', formApi.values.environment)
     el.setAttribute('position', '0 -1 0')
   }
-  enviroment() {
+
+  environment() {
     const enviromentOptions = [
       {
         label: 'Forest',
@@ -106,19 +146,15 @@ export default class Editor extends Component {
         label: 'Tron',
         value: 'preset: tron',
       },
-      {
-        label: 'Starry',
-        value: 'preset: starry',
-      },
     ]
     return (
       <div className="col-xs-6" >
         <Form>
           {formApi => (
-            <form onBlur={() => this.enviromentChange(formApi)}
+            <form onBlur={() => this.environmentChange(formApi)}
               id="select-input-form">
-              <label className="col-xs-2 control-label" htmlFor="select-input-enviroment">Enviroment:</label>
-              <Select className="col-xs-4 form-control" field="enviroment" options={enviromentOptions} />
+              <label className="col-xs-2 control-label" htmlFor="select-input-environment">Environment:</label>
+              <Select className="col-xs-4 form-control" field="environment" options={enviromentOptions} />
             </form>
           )}
         </Form>
@@ -126,6 +162,7 @@ export default class Editor extends Component {
     )
   }
   render() {
+    let text = this.props.text
     return (
       <div id="editor" className="col-lg-4">
         <div className="btn-group btn-group-justified" role="group">
@@ -134,7 +171,7 @@ export default class Editor extends Component {
               <Glyphicon glyph="floppy-open" /> Upload </button>
           </div>
           <div className="btn-group" >
-            <button onClick={this.sync} type="button" className={"btn btn-primary " + (this.state.autoReload ? "active" : "")}>
+            <button onClick={this.lockScene} type="button" className={"btn btn-primary " + (this.state.autoReload ? "active" : "")}>
               <Glyphicon glyph="refresh" /> Sync</button>
           </div>
           <div className="btn-group" >
@@ -152,14 +189,15 @@ export default class Editor extends Component {
           width="100%"
           mode="json"
           theme="github"
-          value={this.props.text}
+          value={text}
           name="ace-editor"
           enableBasicAutocompletion={true}
           enableLiveAutocompletion={true}
           wrapEnabled={true}
         />
-        {this.botButtons()}
-        {this.enviroment()}
+        <this.botButtons />
+        <this.elementButton />
+        {this.environment()}
       </div >
     );
   }

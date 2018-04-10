@@ -1,22 +1,5 @@
 var entityModel = [
   {
-    "geometry": {
-      "primative": "box"
-    },
-    "material": {
-      "color": "#ff8800",
-      "opacity": ".8"
-    },
-    "position": {
-      "x": "0",
-      "y": "0",
-      "z": "1"
-    },
-    "xdimm": "200",
-    "ydimm": "100",
-    "zdimm": "1",
-    "dist": "1",
-    "rotation": "0 0 0"
   }
 ]
 
@@ -30,7 +13,7 @@ export default function scene(state = initial_state, action) {
     case 'EDITOR_RENDER':
       try {
         let newObjs = state.objs.concat(action.obj)
-        let newText = JSON.stringify(newObjs, null, "  ")
+        let newText = JSON.stringify(newObjs, null, "    ")
         return {
           ...state,
           text: newText,
@@ -43,7 +26,7 @@ export default function scene(state = initial_state, action) {
     case 'EDITOR_REFRESH':
       try {
         let newObjs = JSON.parse(action.text)
-        let newText = JSON.stringify(newObjs, null, "  ")
+        let newText = JSON.stringify(newObjs, null, "    ")
         return {
           ...state,
           text: newText,
