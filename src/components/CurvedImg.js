@@ -22,6 +22,7 @@ class PSCurvedImg extends Component {
         material: {
           color: vals.color ? vals.color : "#888",
           opacity: vals.opacity ? vals.opacity : "1",
+          wireframe: false
         },
         position: vals.position ? vals.position : '0 0 0',
         scale: vals.scale ? vals.scale : '1 1 1',

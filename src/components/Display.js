@@ -21,8 +21,9 @@ class PSDisplay extends Component {
           primitive: "box"
         },
         material: {
-          color: vals.color ? vals.color : "#ff8800",
+          color: vals.color ? vals.color : "#000",
           opacity: vals.opacity ? vals.opacity : "1",
+          wireframe: false
         },
         position: {
           x: vals.xpos ? vals.xpos : 0,
@@ -64,6 +65,11 @@ class PSDisplay extends Component {
         text: "Y Position",
         target: "ypos",
         tip: "Veritcal Position"
+      },
+      {
+        text: "Z Position",
+        target: "dist",
+        tip: "Distance from Origin"
       },
       {
         text: "X-dimm",
@@ -109,7 +115,7 @@ class PSDisplay extends Component {
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>Add a Display</Modal.Title>
-            Displays are flat panel representations of screens
+            Add a display to mock a flat panel in the UI. The display will scale automatically as you increase or decrease the Z parameter. <br />
           </Modal.Header>
           <Modal.Body>
             <Form onSubmit={submittedValues => {

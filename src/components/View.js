@@ -56,7 +56,7 @@ class View extends Component {
           {/* <a-obj-model src='#xwing-obj' mtl='#xwing-mtl'></a-obj-model> */}
           {this.props.objects.map((x, index) => this.helper(x, index))}
           <a-entity daydream-controller></a-entity>
-          <Entity position='0 0 3'>
+          <Entity position='0 0 5'>
             <a-camera wasd-controls='fly: true'>
               <a-cursor primitive='a-cursor' animation__click={{ property: 'scale', startEvents: 'click', from: '0.1 0.1 0.1', to: '1 1 1', dur: 150 }} />
             </a-camera>
