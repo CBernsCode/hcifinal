@@ -1,18 +1,62 @@
 import React, { Component } from 'react';
 
-class Form extends Component {
-  redner() {
+const radioSample = [
+  {
+    pos: "0.2 1.8 0",
+    label: "Ice Cream",
+    enabled: true,
+    width: 3
+  },
+  {
+    pos: "0.2 1.5 0",
+    label: "Pizza",
+    enabled: false,
+    width: 3
+  }
+]
+
+const btnSample = [
+  {
+    pos: "0.2 0.8 0",
+    name: "Click me",
+    value: "Click me",
+    width: 3,
+    disabled: true
+  },
+  {
+    pos: "0.2 0.35 0",
+    name: "Click me",
+    value: "Click me",
+    width: 3,
+    disabled: "false"
+  }
+]
+class PSForm extends Component {
+
+  radio = (pos, label, enabled, width) => {
+    return (<a-radio position={pos} label={label} enabled={enabled} width={width}></a-radio>)
+  }
+  button = (pos, name, value, width, disabled) => {
+    return (<a-button position={pos} name={name} value={value} width={width} disabled={disabled}></a-button>)
+  }
+
+
+  render() {
     return (
-      <a-form>
-        <a-switch position="0.2 2.1 0" enabled="true"></a-switch>
-        <a-radio position="0.2 1.8 0" width="3" name="food" label="Ice cream" value="icecream"></a-radio>
-        <a-checkbox position="0.2 1.5 0" width="3" name="stuff" label="I am a checkbox" checked="true"></a-checkbox>
-        <a-checkbox position="0.2 1.2 0" width="3" name="stuff" label="And I am another one" checked="true" disabled="true"></a-checkbox>
-        <a-button position="0.2 0.8 0" name="stuff" value="Click me" type="raised"></a-button>
-        <a-button position="0.2 0.35 0" width="3" name="stuff" value="You can now click me" disabled="false"></a-button>
-      </a-form>
+      <a-rounded
+        position={this.props.position}
+        width={this.props.width}
+        height={this.props.height}
+        radius={this.props.radius}
+        rotation={this.props.rotation}
+        scale={this.props.scale}>
+        <a-form>
+          {radioSample.map((it, index) => this.radio(it.pos, it.label))}
+          {btnSample.map((it, index) => this.button(it.pos, it.name, it.value, it.width))}
+        </a-form>
+      </a-rounded>
     )
   }
 }
 
-export default Form
+export default PSForm

@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import { Entity } from 'aframe-react';
-
+import PSForm from './Form'
 class View extends Component {
   constructor() {
     super();
-    this.state = {}
+    this.state = {
+      showKeyboard: true,
+      showLogin: true
+    }
   }
-  helper(ent, id) {
+  helper = (ent, id) => {
     let scale = {}
     if (ent.position && ent.position.z !== undefined) {
       scale = this.scaleFun(ent.xdimm, ent.ydimm, ent.zdimm, ent.position.z < 1 ? 1 : Math.abs(ent.position.z))
@@ -27,21 +30,74 @@ class View extends Component {
       return <Entity key={id} {...obj} />;
     }
   }
-  scaleFun(x, y, z, scale) {
+
+  scaleFun = (x, y, z, scale) => {
     return {
-      scale: `${x ? (x / 100) * scale : 1} 
-            ${y ? (y / 100) * scale : 1} 
-            ${z ? (z / 100) * scale : 1}`
+      scale:
+         `${x ? (x / 100) * scale : 1} 
+          ${y ? (y / 100) * scale : 1} 
+          ${z ? (z / 100) * scale : 1}`
     }
   }
+
   componentDidMount = () => {
     document.querySelector('a-keyboard').setAttribute('position', { x: -1, y: -0.5, z: -1 });
   }
+
+
+  environmentChange = (event) => {
+    this.setState({ env: event.target.value });
+    var el = document.getElementById('env')
+    el.setAttribute('environment', event.target.value)
+    el.setAttribute('position', '0 -1 0')
+  }
+
+  environment = () => {
+    return (
+      <div className="form-horizontal">
+        <label className="col-xs-2 control-label" for="env">Environment</label>
+        <div className="col-xs-4" >
+          <select name="env" className="form-control" value={this.state.env} onChange={this.environmentChange}>
+            <option value="preset: forest">Forest</option>
+            <option value="preset: checkerboard">Default</option>
+            <option value="preset: tron">Tron</option>
+          </select>
+        </div>
+      </div>
+    )
+  }
+
+  toggleKeyboard = () => {
+    this.setState({ showKeyboard: !this.state.showKeyboard })
+  }
+
+  toggleLogin = () => {
+    this.setState({ showLogin: !this.state.showLogin })
+  }
+
+  toggles = () => {
+    return (
+      <div className="form-group">
+        <div className="btn-group" >
+          <button onClick={this.toggleKeyboard} type="button" className="btn btn-primary">Toggle Keyboard </button>
+          <button onClick={this.toggleLogin} type="button" className="btn btn-primary">Toggle Login </button>
+        </div>
+      </div>
+    )
+  }
+
+  showLogin = () => {
+    if (this.state.showLogin) {
+      return (<PSForm position="1 0.5 -2.5" width="4" height="2.5" radius="0.05" rotation="0 -20 0" scale="0.5 0.5 0.5" />)
+    } else {
+      return null
+    }
+  }
+
   render() {
     return (
       <div id='scene' className='col-lg-8'>
-        <a-scene embedded arjs background='color: #e8e8e8'  >
-
+        <a-scene embedded background='color: #e8e8e8'  >
           <a-entity light='type: hemisphere; color: #eee; groundColor: #000; intensity:1.5'></a-entity>
           <a-entity id='env'></a-entity>
           {this.props.objects.map((x, index) => this.helper(x, index))}
@@ -51,22 +107,14 @@ class View extends Component {
               <a-cursor primitive='a-cursor' animation__click={{ property: 'scale', startEvents: 'click', from: '0.1 0.1 0.1', to: '1 1 1', dur: 150 }} />
             </a-camera>
           </Entity>
-
           <a-entity laser-controls="hand: right"></a-entity>
-          <a-keyboard is-open="true" physical-keyboard="true" ></a-keyboard>
-          <a-input position="-0.7 1 -2.5" placeholder="Username" color="black" width="1"></a-input>
-          <a-input position="-0.7 0.8 -2.5" type="password" placeholder="Password" color="black" width="1"></a-input>
-          <a-rounded position="0.5 0.5 -2.5" width="4" height="2.5" radius="0.05" rotation="0 -20 0" scale="0.3 0.3 0.3">
-            <a-form>
-              <a-switch position="0.2 2.1 0" enabled="true"></a-switch>
-              <a-radio position="0.2 1.8 0" width="3" name="food" label="Ice cream" value="icecream"></a-radio>
-              <a-checkbox position="0.2 1.5 0" width="3" name="stuff" label="I am a checkbox" checked="true"></a-checkbox>
-              <a-checkbox position="0.2 1.2 0" width="3" name="stuff" label="And I am another one" checked="true" disabled="true"></a-checkbox>
-              <a-button position="0.2 0.8 0" name="stuff" value="Click me" type="raised"></a-button>
-              <a-button position="0.2 0.35 0" width="3" name="stuff" value="You can now click me" disabled="false"></a-button>
-            </a-form>
-          </a-rounded>
+          {this.state.showKeyboard ? <a-keyboard id="keyboard" is-open="true" physical-keyboard="true" ></a-keyboard> : null}
+          {this.state.showLogin ? <a-input position="-0.7 1 -2.5" placeholder="Username" color="black" width="1"></a-input> : null}
+          {this.state.showLogin ? <a-input position="-0.7 0.8 -2.5" type="password" placeholder="Password" color="black" width="1"></a-input> : null}
         </a-scene>
+        <PSForm position="1 0.5 -2.5" width="4" height="2.5" radius="0.05" rotation="0 -20 0" scale="0.5 0.5 0.5" />
+        {this.environment()}
+        {this.toggles()}
       </div>
 
     );

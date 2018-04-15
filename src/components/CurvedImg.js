@@ -18,6 +18,7 @@ class PSCurvedImg extends Component {
     let vals = this.state.submittedValues
     if (Object.keys(this.state.submittedValues).length !== 0) {
       let newObj = {
+        type: "curved plane",
         primitive: 'a-curvedimage',
         material: {
           color: vals.color ? vals.color : "#888",

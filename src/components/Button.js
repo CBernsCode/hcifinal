@@ -17,6 +17,7 @@ class PSButton extends Component {
     let vals = this.state.submittedValues
     if (Object.keys(this.state.submittedValues).length !== 0) {
       let newObj = {
+        type: "button",
         geometry: {
           primative: "plane",
           width: "auto",
@@ -31,9 +32,9 @@ class PSButton extends Component {
           y: vals.ypos ? vals.ypos : 1,
           z: vals.dist ? vals.dist : -1,
         },
-        xdimm: vals.xdimm ? vals.xdimm : 100,
-        ydimm: vals.ydimm ? vals.ydimm : 100,
-        zdimm: vals.zdimm ? vals.zdimm : 100,
+        xdimm: 1,
+        ydimm: 1,
+        zdimm: 1,
         rotation: vals.rotation ? vals.rotation : "90 0 0",
         children:{
           "ui-button": true,
@@ -46,13 +47,13 @@ class PSButton extends Component {
             y:  0,
             z: -1,
           },
-          xdimm: vals.xdimm ? vals.xdimm : 100,
-          ydimm: vals.ydimm ? vals.ydimm : 100,
-          zdimm: vals.zdimm ? vals.zdimm : 100,
+          // we want the plan very small and the button to compensate for the small plane
+          xdimm: vals.xdimm ? vals.xdimm * 100 : 10000,
+          ydimm: vals.ydimm ? vals.ydimm * 100 : 10000,
+          zdimm: vals.zdimm ? vals.zdimm * 100 : 10000,
           color: vals.color ? vals.color : "#ff0000",
         }
       }
-      window.display = newObj
       var arr = this.state.prevValues.concat(newObj)
       this.props.render(JSON.stringify(this.state.submittedValues), newObj)
       this.setState({
@@ -126,30 +127,34 @@ class PSButton extends Component {
       })
     )
   }
+  form = () => {
+    return (
+      <Form onSubmit={submittedValues => {
+        this.setState({ submittedValues })
+        this.handleClose()
+      }}>
+        {formApi => (
+          <form onSubmit={formApi.submitForm} id="text-input-form">
+            <div className="form-group">
+              {this.renderParams()}
+              <hr />
+              <Button type="submit" className="btn btn-primary btn-block">Submit</Button>
+              <Button onClick={formApi.resetAll} className="btn btn-danger btn-block">Clear</Button>
+            </div>
+          </form>
+        )}
+      </Form>
+    )
+  }
   displayForm() {
     return (
       <div>
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Add Text</Modal.Title>
-            Add text
+            <Modal.Title>Adds a Clickable button to the scene</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <Form onSubmit={submittedValues => {
-              this.setState({ submittedValues })
-              this.handleClose()
-            }}>
-              {formApi => (
-                <form onSubmit={formApi.submitForm} id="text-input-form">
-                  <div className="form-group">
-                    {this.renderParams()}
-                    <hr />
-                    <Button type="submit" className="btn btn-primary btn-block">Submit</Button>
-                    <Button onClick={formApi.resetAll} className="btn btn-danger btn-block">Clear</Button>
-                  </div>
-                </form>
-              )}
-            </Form>
+            {this.form()}
           </Modal.Body>
         </Modal>
       </div>

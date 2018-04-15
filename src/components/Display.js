@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Form, Text } from 'react-form';
 import { Button, Modal } from 'react-bootstrap';
 
-class PSDisplay extends Component {
+class PSPanel extends Component {
   constructor() {
     super();
     this.state = {
@@ -17,6 +17,7 @@ class PSDisplay extends Component {
     let vals = this.state.submittedValues
     if (Object.keys(this.state.submittedValues).length !== 0) {
       let newObj = {
+        type: "panel",
         geometry: {
           primitive: "box"
         },
@@ -150,4 +151,4 @@ class PSDisplay extends Component {
   }
 }
 
-export default PSDisplay
+export default PSPanel

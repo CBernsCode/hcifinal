@@ -4,7 +4,6 @@ import PSDisplay from './Display'
 import PSCurvedImg from './CurvedImg'
 import PSText from './Text'
 import PSButton from './Button'
-import { Form, Select } from 'react-form';
 import { Glyphicon } from 'react-bootstrap'
 import 'brace/mode/json'
 import 'brace/theme/github'
@@ -15,7 +14,7 @@ export default class Editor extends Component {
     super()
     this.state = {
       user: null,
-      environment: "",
+      env: "preset: checkerboard",
       autoReload: true
     }
   }
@@ -37,10 +36,6 @@ export default class Editor extends Component {
         }
       }
     });
-  }
-
-  componentDidUpdate = () => {
-    
   }
 
   logout = () => {
@@ -124,43 +119,6 @@ export default class Editor extends Component {
       </div>
     )
   }
-
-  environmentChange = (formApi) => {
-    var el = document.getElementById('env')
-    // To-Do: refactor out
-    el.setAttribute('environment', formApi.values.environment)
-    el.setAttribute('position', '0 -1 0')
-  }
-
-  environment() {
-    const enviromentOptions = [
-      {
-        label: 'Forest',
-        value: 'preset: forest',
-      },
-      {
-        label: 'Default',
-        value: 'preset: checkerboard',
-      },
-      {
-        label: 'Tron',
-        value: 'preset: tron',
-      },
-    ]
-    return (
-      <div className="col-xs-6" >
-        <Form>
-          {formApi => (
-            <form onBlur={() => this.environmentChange(formApi)}
-              id="select-input-form">
-              <label className="col-xs-2 control-label" htmlFor="select-input-environment">Environment:</label>
-              <Select className="col-xs-4 form-control" field="environment" options={enviromentOptions} />
-            </form>
-          )}
-        </Form>
-      </div >
-    )
-  }
   render() {
     let text = this.props.text
     return (
@@ -177,10 +135,11 @@ export default class Editor extends Component {
           <div className="btn-group" >
             {this.state.user
               ? <button className="btn btn-primary" onClick={this.logout}>
-                <img width={20} height={18} src={this.state.user.photoURL} alt="thumbnail" />  Log Out
+                  <img width={20} height={18} src={this.state.user.photoURL} alt="thumbnail" />  Log Out
                 </button>
               : <button className="btn btn-primary" onClick={this.login}>
-                <Glyphicon glyph="user" /> Log In</button>
+                  <Glyphicon glyph="user" /> Log In
+                </button>
             }
           </div>
         </div>
@@ -195,9 +154,8 @@ export default class Editor extends Component {
           enableLiveAutocompletion={true}
           wrapEnabled={true}
         />
-        <this.botButtons />
         <this.elementButton />
-        {this.environment()}
+        <this.botButtons />
       </div >
     );
   }

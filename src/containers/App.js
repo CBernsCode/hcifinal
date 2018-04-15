@@ -1,22 +1,20 @@
 import React from 'react';
-import Editor  from '../components/Editor';
+import Editor from '../components/Editor';
 import View from '../components/View';
-import {render, refresh, clear} from '../actions'
+import { render, refresh, clear } from '../actions'
 import logo from '../logo.svg';
 import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-const App = ({text, objects, base, actions}) => (
+const App = ({ text, objects, base, actions }) => (
   <div className="App">
     <header className="App-header">
       <img src={logo} className="App-logo" alt="logo" />
-     <h1 className="App-title">Proto Star</h1>   
+      <h1 className="App-title">Proto Star</h1>
     </header>
-    <div>
-      <Editor text={text} actions={actions} />
-      <View text={text}  objects={objects} />
-    </div>
+    <Editor text={text} actions={actions} />
+    <View text={text} objects={objects} />
   </div>
 )
 
@@ -33,7 +31,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({render,refresh, clear}, dispatch)
+  actions: bindActionCreators({ render, refresh, clear }, dispatch)
 })
 
 

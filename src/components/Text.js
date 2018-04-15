@@ -17,6 +17,7 @@ class PSText extends Component {
     let vals = this.state.submittedValues
     if (Object.keys(this.state.submittedValues).length !== 0) {
       let newObj = {
+        type: "text",
         geometry: {
           primitive: "plane",
           // width: "0",

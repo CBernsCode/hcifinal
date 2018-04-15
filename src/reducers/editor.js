@@ -5,7 +5,7 @@ var entityModel = [
 
 const initial_state = {
   text: JSON.stringify(entityModel, null, "  "),
-  objs: entityModel
+  objs: entityModel,
 }
 
 export default function scene(state = initial_state, action) {
