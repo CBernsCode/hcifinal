@@ -25,12 +25,12 @@ export default class Editor extends Component {
       if (user) {
         this.setState({ user });
         if (this.state.autoReload) {
-          let renderFun = this.props.actions.refresh
+          let renderFun = this.props.actions.refresh;
           const itemsRef = firebase.database().ref(this.state.user.uid);
           itemsRef.on('value', (snapshot) => {
-            let val = snapshot.val()
+            let val = snapshot.val();
             if (val) {
-              renderFun(val)
+              renderFun(val);
             }
           })
         }
@@ -56,44 +56,44 @@ export default class Editor extends Component {
     const content = this.refs.aceEditor.editor.session.getValue()
     if (this.state.user) {
       const itemRef = firebase.database().ref(this.state.user.uid);
-      itemRef.set(content)
+      itemRef.set(content);
     }
-    this.props.actions.refresh(content)
+    this.props.actions.refresh(content);
   }
 
   loadScene = () => {
-    let renderFun = this.props.actions.refresh
+    let renderFun = this.props.actions.refresh;
     if (this.state.user) {
       firebase.database().ref(this.state.user.uid).once('value')
-        .then(function (snapshot) { renderFun(snapshot.val()) })
+        .then(function (snapshot) { renderFun(snapshot.val()) });
     }
   }
 
   sync = () => {
     this.setState({ autoReload: !this.state.autoReload })
     if (this.state.autoReload && this.state.user) {
-      let renderFun = this.props.actions.refresh
+      let renderFun = this.props.actions.refresh;
       firebase.database().ref(this.state.user.uid).on('value')
         .then(function (snapshot) {
-          let val = snapshot.val()
+          let val = snapshot.val();
           if (val) {
-            renderFun(val)
+            renderFun(val);
           }
         })
     }
   }
 
   lockScene = () => {
-    this.setState({ autoReload: !this.state.autoReload })
+    this.setState({ autoReload: !this.state.autoReload });
   }
 
   remove = () => {
-    this.props.actions.clear()
+    this.props.actions.clear();
   }
 
   handleRender = () => {
-    const content = this.refs.aceEditor.editor.session.getValue()
-    this.props.actions.refresh(content)
+    const content = this.refs.aceEditor.editor.session.getValue();
+    this.props.actions.refresh(content);
   }
 
   elementButton = () => {
