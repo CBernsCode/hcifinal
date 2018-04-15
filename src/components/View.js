@@ -15,7 +15,7 @@ class View extends Component {
 
     // If there are children pull them off and map child entities first
     if (obj.hasOwnProperty('children')) {
-      let children = [] 
+      let children = []
       children = children.concat(ent.children)
       delete obj.children;
       return (
@@ -27,23 +27,13 @@ class View extends Component {
       return <Entity key={id} {...obj} />;
     }
   }
-
   scaleFun(x, y, z, scale) {
     return {
       scale: `${x ? (x / 100) * scale : 1} 
-              ${y ? (y / 100) * scale : 1} 
-              ${z ? (z / 100) * scale : 1}`
+            ${y ? (y / 100) * scale : 1} 
+            ${z ? (z / 100) * scale : 1}`
     }
   }
-
-  // options = () => {
-  //   let options
-
-  //   return (
-
-  //   )
-  // }
-
   componentDidMount = () => {
     document.querySelector('a-keyboard').setAttribute('position', { x: -1, y: -0.5, z: -1 });
   }
