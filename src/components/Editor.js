@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import AceEditor from 'react-ace'
-import PSDisplay from './Display'
+import PSPlane from './Display'
 import PSCurvedImg from './CurvedImg'
 import PSText from './Text'
 import PSButton from './Button'
@@ -8,6 +8,7 @@ import { Glyphicon } from 'react-bootstrap'
 import 'brace/mode/json'
 import 'brace/theme/github'
 import firebase, { auth, provider } from '../containers/firebase.js';
+import $ from 'jquery'
 
 export default class Editor extends Component {
   constructor() {
@@ -36,6 +37,12 @@ export default class Editor extends Component {
         }
       }
     });
+    $(document.body).on('keydown', this.handleKeyDown);
+
+  }
+
+  componentWillUnmount = () => {
+    $(document.body).off('keydown', this.handleKeyDown);
   }
 
   logout = () => {
@@ -88,7 +95,8 @@ export default class Editor extends Component {
   }
 
   remove = () => {
-    this.props.actions.clear();
+    const content = this.refs.aceEditor.editor.session.getValue();
+    this.props.actions.clear(content);
   }
 
   handleRender = () => {
@@ -99,7 +107,7 @@ export default class Editor extends Component {
   elementButton = () => {
     return (
       <div className="btn-group btn-group-justified" role="group">
-        <PSDisplay render={this.props.actions.render} />
+        <PSPlane render={this.props.actions.render} />
         <PSCurvedImg render={this.props.actions.render} />
         <PSText render={this.props.actions.render} />
         <PSButton render={this.props.actions.render} />
@@ -111,10 +119,10 @@ export default class Editor extends Component {
     return (
       <div className="btn-group btn-group-justified" role="group">
         <div className="btn-group" >
-          <button onClick={this.handleRender} type="button" className="btn btn-success" >Render Scene</button>
+          <button id="render" onClick={this.handleRender} type="button" className="btn btn-success" ><i className="fas fa-sync"></i> Render Scene</button>
         </div>
         <div className="btn-group" >
-          <button onClick={this.remove} type="button" className="btn btn-danger"> Clear Scene</button>
+          <button onClick={this.remove} type="button" className="btn btn-danger"><i className="far fa-trash-alt"></i> Clear Scene</button>
         </div>
       </div>
     )
@@ -129,13 +137,9 @@ export default class Editor extends Component {
               <Glyphicon glyph="floppy-open" /> Upload </button>
           </div>
           <div className="btn-group" >
-            <button onClick={this.lockScene} type="button" className={"btn btn-primary " + (this.state.autoReload ? "active" : "")}>
-              <Glyphicon glyph="refresh" /> Sync</button>
-          </div>
-          <div className="btn-group" >
             {this.state.user
               ? <button className="btn btn-primary" onClick={this.logout}>
-                  <img width={20} height={18} src={this.state.user.photoURL} alt="thumbnail" />  Log Out
+                  <img width={20} height={17} src={this.state.user.photoURL} alt="thumbnail" />  Log Out
                 </button>
               : <button className="btn btn-primary" onClick={this.login}>
                   <Glyphicon glyph="user" /> Log In

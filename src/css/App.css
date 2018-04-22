@@ -74,9 +74,12 @@ a-scene[aframe-inspector-removed-embedded] {
 button.btn {
   overflow: hidden;
   text-overflow: ellipsis;
-  padding: 2px 0;
+  padding: 5px;
   margin: 4px;
 }
 .btn-group{
   margin: 2px;
+}
+input, label {
+  text-transform: capitalize;
 }

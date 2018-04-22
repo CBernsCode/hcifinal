@@ -13,7 +13,7 @@ export default function scene(state = initial_state, action) {
     case 'EDITOR_RENDER':
       try {
         let newObjs = state.objs.concat(action.obj)
-        let newText = JSON.stringify(newObjs, null, "    ")
+        let newText = JSON.stringify(newObjs, null, "  ")
         return {
           ...state,
           text: newText,
@@ -26,7 +26,7 @@ export default function scene(state = initial_state, action) {
     case 'EDITOR_REFRESH':
       try {
         let newObjs = JSON.parse(action.text)
-        let newText = JSON.stringify(newObjs, null, "    ")
+        let newText = JSON.stringify(newObjs, null, "  ")
         return {
           ...state,
           text: newText,
@@ -37,7 +37,10 @@ export default function scene(state = initial_state, action) {
         return state
       }
     case 'EDITOR_CLEAR':
-      return initial_state
+      return {
+        ...initial_state, 
+        text: action.text
+      }
     default:
       return state
   }

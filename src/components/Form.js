@@ -11,7 +11,7 @@ const radioSample = [
     label: "Pizza",
     width: 3
   }
-]
+];
 
 const btnSample = [
   {
@@ -28,16 +28,17 @@ const btnSample = [
     width: 5,
     disabled: false
   }
-]
+];
+
 class PSForm extends Component {
 
-  radio = (pos, label, width) => {
-    return (<a-radio position={pos} label={label} width={width} ></a-radio>)
-  }
-  button = (pos, name, value, width, disabled) => {
-    return (<a-button position={pos} name={name} value={value} width={width} disabled={disabled}></a-button>)
+  radio(key, pos, label, width) {
+    return (<a-radio key={key} position={pos} label={label} width={width} ></a-radio>);
   }
 
+  button(key, pos, name, value, width, disabled) {
+    return (<a-button key={key} position={pos} name={name} value={value} width={width} disabled={disabled}></a-button>);
+  }
 
   render() {
     return (
@@ -49,12 +50,12 @@ class PSForm extends Component {
         rotation={this.props.rotation}
         scale={this.props.scale}>
         <a-form>
-          {radioSample.map((it, index) => this.radio(it.pos, it.label))}
-          {btnSample.map((it, index) => this.button(it.pos, it.name, it.value, it.width))}
+          {radioSample.map((it, index) => this.radio(index, it.pos, it.label))}
+          {btnSample.map((it, index) => this.button(index, it.pos, it.name, it.value, it.width))}
         </a-form>
       </a-rounded>
-    )
+    );
   }
 }
 
-export default PSForm
+export default PSForm;

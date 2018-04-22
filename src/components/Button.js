@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Form, Text } from 'react-form';
-import { Button, Modal } from 'react-bootstrap';
+import { Button, Modal } from 'react-bootstrap'
 
 class PSButton extends Component {
   constructor() {
@@ -13,13 +13,13 @@ class PSButton extends Component {
     }
   }
   handleClose = () => {
-    this.setState({show: false})
+    this.setState({ show: false })
     let vals = this.state.submittedValues
     if (Object.keys(this.state.submittedValues).length !== 0) {
       let newObj = {
         type: "button",
         geometry: {
-          primative: "plane",
+          primitive: "plane",
           width: "auto",
           height: "auto"
         },
@@ -36,15 +36,15 @@ class PSButton extends Component {
         ydimm: 1,
         zdimm: 1,
         rotation: vals.rotation ? vals.rotation : "90 0 0",
-        children:{
-          "ui-button": true,
+        children: {
+          "ui-button": `color: ${vals.color ? vals.color : "#000"}`,
           material: {
             color: vals.color ? vals.color : "#ff8800",
             opacity: vals.opacity ? vals.opacity : "1",
           },
           position: {
-            x:  0,
-            y:  0,
+            x: 0,
+            y: 0,
             z: -1,
           },
           // we want the plan very small and the button to compensate for the small plane
@@ -83,7 +83,7 @@ class PSButton extends Component {
       {
         text: "Y Position",
         target: "ypos",
-        tip: "Veritcal Position"
+        tip: "Vertical Position"
       },
       {
         text: "Z Position",
@@ -164,7 +164,8 @@ class PSButton extends Component {
     return (
       <div id="text-button" className="btn-group">
         <Button bsStyle="primary" onClick={this.handleShow}>
-          Add Button
+          {/* Add Button */}
+          <i className="far fa-hand-pointer"></i> Button
         </Button>
         {this.displayForm()}
       </div>

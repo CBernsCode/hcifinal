@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Form, Text } from 'react-form';
 import { Button, Modal } from 'react-bootstrap';
 
-class PSPanel extends Component {
+class PSPlane extends Component {
   constructor() {
     super();
     this.state = {
@@ -10,7 +10,7 @@ class PSPanel extends Component {
       show: false,
       submittedValues: {},
       prevValues: []
-    }
+    };
   }
   handleClose = () => {
     this.setState({ show: false })
@@ -29,19 +29,19 @@ class PSPanel extends Component {
         position: {
           x: vals.xpos ? vals.xpos : 0,
           y: vals.ypos ? vals.ypos : 0,
-          z: vals.dist ? vals.dist : 1,
+          z: vals.zpos ? vals.zpos : 1,
         },
         xdimm: vals.xdimm ? vals.xdimm : 100,
         ydimm: vals.ydimm ? vals.ydimm : 100,
         zdimm: 1,
         rotation: vals.rotation ? vals.rotation : "0 0 0",
-      }
-      var arr = this.state.prevValues.concat(newObj)
-      this.props.render(JSON.stringify(this.state.submittedValues), newObj)
+      };
+      var arr = this.state.prevValues.concat(newObj);
+      this.props.render(JSON.stringify(this.state.submittedValues), newObj);
       this.setState({
         prevValues: arr,
         submittedValues: {}
-      })
+      });
     }
   }
   handleShow = () => {
@@ -53,7 +53,7 @@ class PSPanel extends Component {
         <label htmlFor={"text-input-" + target} className="col-xs-4">{text}</label>
         <Text field={target} id={"text-input-" + target} className="col-xs-8" /><br />
       </div>
-    )
+    );
   }
   renderParams() {
     const params = [
@@ -65,11 +65,11 @@ class PSPanel extends Component {
       {
         text: "Y Position",
         target: "ypos",
-        tip: "Veritcal Position"
+        tip: "Vertical Position"
       },
       {
         text: "Z Position",
-        target: "dist",
+        target: "zpos",
         tip: "Distance from Origin"
       },
       {
@@ -97,8 +97,7 @@ class PSPanel extends Component {
         target: "opacity",
         tip: "0 - 1"
       },
-
-    ]
+    ];
     return (
       params.map((x, index) => {
         return (
@@ -106,9 +105,9 @@ class PSPanel extends Component {
             <label htmlFor={`text-input-${x.target}`} className="col-xs-5">{x.text}</label>
             <Text field={x.target} placeholder={x.tip} id={`text-input-${x.target}`} className="col-xs-7" />
           </div>
-        )
+        );
       })
-    )
+    );
   }
   displayForm() {
     return (
@@ -116,12 +115,12 @@ class PSPanel extends Component {
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>Add a Display</Modal.Title>
-            Add a display to mock a flat panel in the UI. The display will scale automatically as you increase or decrease the Z parameter. <br />
+            Add a plane to mock a flat panel in the UI. The display will scale automatically as you increase or decrease the Z position. <br />
           </Modal.Header>
           <Modal.Body>
             <Form onSubmit={submittedValues => {
-              this.setState({ submittedValues })
-              this.handleClose()
+              this.setState({ submittedValues });
+              this.handleClose();
             }}>
               {formApi => (
                 <form onSubmit={formApi.submitForm} id="text-input-form">
@@ -137,18 +136,18 @@ class PSPanel extends Component {
           </Modal.Body>
         </Modal>
       </div>
-    )
+    );
   }
   render() {
     return (
       <div id="display-ui" className="btn-group">
         <Button bsStyle="primary" onClick={this.handleShow}>
-          Add Display Object
+        <i className="far fa-square"></i> Add Plane
         </Button>
         {this.displayForm()}
       </div>
-    )
+    );
   }
 }
 
-export default PSPanel
+export default PSPlane;

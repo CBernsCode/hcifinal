@@ -20,8 +20,8 @@ class PSText extends Component {
         type: "text",
         geometry: {
           primitive: "plane",
-          // width: "0",
-          // height: "0"
+          width: .0001,
+          height: .0001
         },
         material: {
           opacity: vals.opacity ? vals.opacity : "0",
@@ -29,7 +29,7 @@ class PSText extends Component {
         position: {
           x: vals.xpos ? vals.xpos : 1,
           y: vals.ypos ? vals.ypos : 1,
-          z: vals.dist ? vals.dist : -1,
+          z: vals.zpos ? vals.zpos : -1,
         },
         rotation: vals.rotation ? vals.rotation : "0 0 0",
         text: {
@@ -37,9 +37,6 @@ class PSText extends Component {
           align: vals.align ? vals.align : "center",
           value: vals.value ? vals.value : "Hello World!",
           zOffset: .01,
-          xdimm: vals.xdimm ? vals.xdimm : 100,
-          ydimm: vals.ydimm ? vals.ydimm : 100,
-          zdimm: 1,
           width: vals.width ? vals.width : 10,
         },
       }
@@ -73,7 +70,12 @@ class PSText extends Component {
       {
         text: "Y Position",
         target: "ypos",
-        tip: "Veritcal Position"
+        tip: "Vertical Position"
+      },
+      {
+        text: "Z Position",
+        target: "zpos",
+        tip: "Distance from origin"
       },
       {
         text: "width",
@@ -104,12 +106,7 @@ class PSText extends Component {
         text: "value",
         target: "value",
         tip: "value"
-      },
-      {
-        text: "side",
-        target: "side",
-        tip: "side"
-      },
+      }
     ]
     return (
       params.map((x, index) => {
@@ -128,7 +125,8 @@ class PSText extends Component {
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>Add Text</Modal.Title>
-            Add text
+            Add text. The width and height control the size of the backplane of the text. Making it really small allows the text to be transparent. Adjust the size to make a solid color background. 
+            
           </Modal.Header>
           <Modal.Body>
             <Form onSubmit={submittedValues => {
@@ -155,7 +153,7 @@ class PSText extends Component {
     return (
       <div id="text-ui" className="btn-group">
         <Button bsStyle="primary" onClick={this.handleShow}>
-          Add Text
+         <i className="fas fa-text-width"></i> Text
         </Button>
         {this.displayForm()}
       </div>

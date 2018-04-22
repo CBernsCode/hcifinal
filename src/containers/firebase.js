@@ -1,6 +1,6 @@
-import firebase from 'firebase'
+import firebase from 'firebase';
 
-var config = {
+const config = {
   apiKey: "AIzaSyCkKvZkGqdfPMUEECbHOtyXifE1IMt3vuw",
   authDomain: "proto-star-dc4ea.firebaseapp.com",
   databaseURL: "https://proto-star-dc4ea.firebaseio.com",

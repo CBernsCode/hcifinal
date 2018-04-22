@@ -32,8 +32,8 @@ class PSCurvedImg extends Component {
         src: vals.src ? vals.src : "",
         radius: vals.radius ? vals.radius : 2,
         transparent: false,
-        'theta-length': 180,
-        'theta-start': 90
+        'theta-length': vals.thetalength ? vals.thetalength : 180,
+        'theta-start': vals.thetastart ? vals.thetastart : 90
 
       }
       // var arr = this.state.prevValues.concat(newObj)
@@ -57,7 +57,7 @@ class PSCurvedImg extends Component {
       {
         text: 'Rotation',
         target: 'rotation',
-        tip: `X Y Z like '1 2 3'`
+        tip: `X Y Z like '1 2 3' in degrees`,
       },
       {
         text: 'Scale',
@@ -75,25 +75,24 @@ class PSCurvedImg extends Component {
       },
       {
         text: 'Opacity',
-        target: 'opacity'
+        target: 'opacity',
+        tip: "0 - 1"
       },
       {
         text: 'Radius',
         target: 'radius'
       },
       {
-        text: 'Src',
-        target: 'src'
+        text: 'Theta Start',
+        target: 'thetastart',
+        tip: 'in degrees'
       },
       {
         text: 'Theta Length',
-        target: 'theta-length'
+        target: 'thetalength',
+        tip: 'in degrees'
       },
-      {
-        text: 'Theta Start',
-        target: 'theta-start'
-      },
-    ]
+    ];
     return (
       params.map((x, index) => {
         return (
@@ -138,7 +137,7 @@ class PSCurvedImg extends Component {
     return (
       <div id='curved-ui' className='btn-group' >
         <Button bsStyle='primary' onClick={this.handleShow}>
-          Add a Cuved Img
+        <i className="fab fa-cuttlefish"></i> Curved Plane
         </Button>
         {this.curvedForm()}
       </div>
@@ -146,4 +145,4 @@ class PSCurvedImg extends Component {
   }
 }
 
-export default PSCurvedImg
+export default PSCurvedImg;
