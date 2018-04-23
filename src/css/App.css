@@ -38,10 +38,6 @@ body {
   font-size: large;
 }
 
-#editor {
-  /* border: #222 1px solid; */
-}
-
 #scene {
   height: 90vh;
   /* border: #222 1px solid; */
