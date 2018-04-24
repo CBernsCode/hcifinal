@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { Form, Text } from 'react-form';
-import { Button, Modal } from 'react-bootstrap';
+import React, {Component} from "react";
+import {Form, Text} from "react-form";
+import {Button, Modal} from "react-bootstrap";
 
 class PSText extends Component {
   constructor() {
@@ -10,11 +10,11 @@ class PSText extends Component {
       show: false,
       submittedValues: {},
       prevValues: []
-    }
+    };
   }
   handleClose = () => {
-    this.setState({ show: false })
-    let vals = this.state.submittedValues
+    this.setState({show: false});;
+    let vals = this.state.submittedValues;;
     if (Object.keys(this.state.submittedValues).length !== 0) {
       let newObj = {
         type: "text",
@@ -39,26 +39,26 @@ class PSText extends Component {
           zOffset: .01,
           width: vals.width ? vals.width : 10,
         },
-      }
-      window.display = newObj
-      var arr = this.state.prevValues.concat(newObj)
-      this.props.render(JSON.stringify(this.state.submittedValues), newObj)
+      };
+      window.display = newObj;;
+      let arr = this.state.prevValues.concat(newObj);;
+      this.props.render(JSON.stringify(this.state.submittedValues), newObj);;
       this.setState({
         prevValues: arr,
         submittedValues: {}
-      })
+      });
     }
-  }
+  };
   handleShow = () => {
-    this.setState({ show: true });
-  }
+    this.setState({show: true});
+  };
   textAndLabel(text, target) {
     return (
       <div>
         <label htmlFor={"text-input-" + target} className="col-xs-4">{text}</label>
         <Text field={target} id={"text-input-" + target} className="col-xs-8" /><br />
       </div>
-    )
+    );
   }
   renderParams() {
     const params = [
@@ -107,7 +107,7 @@ class PSText extends Component {
         target: "value",
         tip: "value"
       }
-    ]
+    ];
     return (
       params.map((x, index) => {
         return (
@@ -115,9 +115,9 @@ class PSText extends Component {
             <label htmlFor={`text-input-${x.target}`} className="col-xs-5">{x.text}</label>
             <Text field={x.target} placeholder={x.tip} id={`text-input-${x.target}`} className="col-xs-7" />
           </div>
-        )
+        );
       })
-    )
+    );
   }
   displayForm() {
     return (
@@ -130,8 +130,8 @@ class PSText extends Component {
           </Modal.Header>
           <Modal.Body>
             <Form onSubmit={submittedValues => {
-              this.setState({ submittedValues })
-              this.handleClose()
+              this.setState({submittedValues});;
+              this.handleClose();;
             }}>
               {formApi => (
                 <form onSubmit={formApi.submitForm} id="text-input-form">
@@ -147,7 +147,7 @@ class PSText extends Component {
           </Modal.Body>
         </Modal>
       </div>
-    )
+    );
   }
   render() {
     return (
@@ -157,8 +157,8 @@ class PSText extends Component {
         </Button>
         {this.displayForm()}
       </div>
-    )
+    );;
   }
 }
 
-export default PSText
+export default PSText;

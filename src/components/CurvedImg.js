@@ -10,16 +10,16 @@ class PSCurvedImg extends Component {
       show: false,
       submittedValues: {},
       prevValues: []
-    }
+    };
   }
 
   handleClose = () => {
     this.setState({ show: false });
-    let vals = this.state.submittedValues
+    let vals = this.state.submittedValues;
     if (Object.keys(this.state.submittedValues).length !== 0) {
       let newObj = {
         type: "curved plane",
-        primitive: 'a-curvedimage',
+        primitive: "a-curvedimage",
         material: {
           color: vals.color ? vals.color : "#888",
           opacity: vals.opacity ? vals.opacity : "1",
@@ -37,12 +37,14 @@ class PSCurvedImg extends Component {
       this.props.render(JSON.stringify(this.state.submittedValues), newObj)
       this.setState({
         submittedValues: {}
-      })
+      });
     }
-  }
+  };
+
   handleShow = () => {
     this.setState({ show: true });
-  }
+  };
+
   renderParams() {
     const params = [
       {
@@ -96,10 +98,11 @@ class PSCurvedImg extends Component {
             <label htmlFor={`text-input-${x.target}`} className='col-xs-5'>{x.text}</label>
             <Text field={x.target} placeholder={x.tip} id={`text-input-${x.target}`} className='col-xs-7' />
           </div>
-        )
+        );
       })
-    )
+    );
   }
+
   curvedForm() {
     return (
       <div>
@@ -110,8 +113,8 @@ class PSCurvedImg extends Component {
           </Modal.Header>
           <Modal.Body>
             <Form onSubmit={submittedValues => {
-              this.setState({ submittedValues })
-              this.handleClose()
+              this.setState({submittedValues});
+              this.handleClose();
             }}>
               {formApi => (
                 <form onSubmit={formApi.submitForm} id='text-input-form'>
@@ -127,17 +130,18 @@ class PSCurvedImg extends Component {
           </Modal.Body>
         </Modal>
       </div>
-    )
+    );
   }
+
   render() {
     return (
       <div id='curved-ui' className='btn-group' >
         <Button bsStyle='default' onClick={this.handleShow}>
-        <i className="fab fa-cuttlefish"></i> Curved Plane
+          <i className="fab fa-cuttlefish"></i> Curved Plane
         </Button>
         {this.curvedForm()}
       </div>
-    )
+    );
   }
 }
 

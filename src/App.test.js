@@ -16,15 +16,6 @@ import View from './components/View';
 
 
 describe('Smoke tests', () => {
-  it('App without crashing', () => {
-    const store = createStore(reducer);
-    const div = document.createElement('div');
-    ReactDOM.render(<Provider store={store}>
-      <App />
-    </Provider>, div);
-    ReactDOM.unmountComponentAtNode(div);
-  });
-
   it('Button without crashing', () => {
     const div = document.createElement('div');
     ReactDOM.render(<Button />, div);
@@ -61,4 +52,12 @@ describe('Smoke tests', () => {
     ReactDOM.render(<Editor actions={actions}/>, div);
     ReactDOM.unmountComponentAtNode(div);
   });
-})
+  it('App without crashing', () => {
+    const store = createStore(reducer);
+    const div = document.createElement('div');
+    ReactDOM.render(<Provider store={store}>
+      <App />
+    </Provider>, div);
+    ReactDOM.unmountComponentAtNode(div);
+  });
+});

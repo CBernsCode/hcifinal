@@ -10,7 +10,7 @@ class PSButton extends Component {
       show: false,
       submittedValues: {},
       prevValues: []
-    }
+    };
   }
   handleClose = () => {
     this.setState({ show: false })
@@ -53,26 +53,29 @@ class PSButton extends Component {
           zdimm: vals.zdimm ? vals.zdimm * 100 : 10000,
           color: vals.color ? vals.color : "#ff0000",
         }
-      }
-      var arr = this.state.prevValues.concat(newObj)
+      };
+      let arr = this.state.prevValues.concat(newObj)
       this.props.render(JSON.stringify(this.state.submittedValues), newObj)
       this.setState({
         prevValues: arr,
         submittedValues: {}
-      })
+      });
     }
-  }
+  };
+
   handleShow = () => {
     this.setState({ show: true });
-  }
+  };
+
   textAndLabel(text, target) {
     return (
       <div>
         <label htmlFor={"text-input-" + target} className="col-xs-4">{text}</label>
         <Text field={target} id={"text-input-" + target} className="col-xs-8" /><br />
       </div>
-    )
+    );
   }
+
   renderParams() {
     const params = [
       {
@@ -115,7 +118,7 @@ class PSButton extends Component {
         target: "opacity",
         tip: "opacity"
       }
-    ]
+    ];
     return (
       params.map((x, index) => {
         return (
@@ -123,10 +126,11 @@ class PSButton extends Component {
             <label htmlFor={`text-input-${x.target}`} className="col-xs-5">{x.text}</label>
             <Text field={x.target} placeholder={x.tip} id={`text-input-${x.target}`} className="col-xs-7" />
           </div>
-        )
+        );
       })
-    )
+    );
   }
+
   form = () => {
     return (
       <Form onSubmit={submittedValues => {
@@ -144,8 +148,9 @@ class PSButton extends Component {
           </form>
         )}
       </Form>
-    )
-  }
+    );
+  };
+
   displayForm() {
     return (
       <div>
@@ -158,8 +163,9 @@ class PSButton extends Component {
           </Modal.Body>
         </Modal>
       </div>
-    )
+    );
   }
+  
   render() {
     return (
       <div id="text-button" className="btn-group">
