@@ -29,17 +29,13 @@ class PSCurvedImg extends Component {
         scale: vals.scale ? vals.scale : '1 1 1',
         rotation: vals.rotation,
         height: vals.height ? vals.height : '1',
-        src: vals.src ? vals.src : "",
         radius: vals.radius ? vals.radius : 2,
-        transparent: false,
         'theta-length': vals.thetalength ? vals.thetalength : 180,
         'theta-start': vals.thetastart ? vals.thetastart : 90
 
-      }
-      // var arr = this.state.prevValues.concat(newObj)
+      };
       this.props.render(JSON.stringify(this.state.submittedValues), newObj)
       this.setState({
-        // prevValues: arr,
         submittedValues: {}
       })
     }
@@ -136,7 +132,7 @@ class PSCurvedImg extends Component {
   render() {
     return (
       <div id='curved-ui' className='btn-group' >
-        <Button bsStyle='primary' onClick={this.handleShow}>
+        <Button bsStyle='default' onClick={this.handleShow}>
         <i className="fab fa-cuttlefish"></i> Curved Plane
         </Button>
         {this.curvedForm()}

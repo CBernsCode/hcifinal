@@ -141,7 +141,7 @@ class PSPlane extends Component {
   render() {
     return (
       <div id="display-ui" className="btn-group">
-        <Button bsStyle="primary" onClick={this.handleShow}>
+        <Button bsStyle="default" onClick={this.handleShow}>
         <i className="far fa-square"></i> Add Plane
         </Button>
         {this.displayForm()}

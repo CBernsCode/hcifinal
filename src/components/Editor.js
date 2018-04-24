@@ -133,15 +133,15 @@ export default class Editor extends Component {
       <div id="editor" className="col-lg-4">
         <div className="btn-group btn-group-justified" role="group">
           <div className="btn-group" >
-            <button onClick={this.handleSave} type="button" className="btn btn-primary">
+            <button onClick={this.handleSave} type="button" className="btn btn-default">
               <Glyphicon glyph="floppy-open" /> Upload </button>
           </div>
           <div className="btn-group" >
             {this.state.user
-              ? <button className="btn btn-primary" onClick={this.logout}>
+              ? <button className="btn btn-default" onClick={this.logout}>
                   <img width={20} height={17} src={this.state.user.photoURL} alt="thumbnail" />  Log Out
                 </button>
-              : <button className="btn btn-primary" onClick={this.login}>
+              : <button className="btn btn-default" onClick={this.login}>
                   <Glyphicon glyph="user" /> Log In
                 </button>
             }

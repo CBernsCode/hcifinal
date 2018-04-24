@@ -49,7 +49,7 @@ class PSForm extends Component {
         radius={this.props.radius}
         rotation={this.props.rotation}
         scale={this.props.scale}>
-        <a-form>
+        <a-form background-color="#000">
           {radioSample.map((it, index) => this.radio(index, it.pos, it.label))}
           {btnSample.map((it, index) => this.button(index, it.pos, it.name, it.value, it.width))}
         </a-form>

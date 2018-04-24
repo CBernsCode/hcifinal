@@ -163,7 +163,7 @@ class PSButton extends Component {
   render() {
     return (
       <div id="text-button" className="btn-group">
-        <Button bsStyle="primary" onClick={this.handleShow}>
+        <Button bsStyle="default" onClick={this.handleShow}>
           {/* Add Button */}
           <i className="far fa-hand-pointer"></i> Button
         </Button>

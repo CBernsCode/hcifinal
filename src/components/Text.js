@@ -152,7 +152,7 @@ class PSText extends Component {
   render() {
     return (
       <div id="text-ui" className="btn-group">
-        <Button bsStyle="primary" onClick={this.handleShow}>
+        <Button bsStyle="default" onClick={this.handleShow}>
          <i className="fas fa-text-width"></i> Text
         </Button>
         {this.displayForm()}
