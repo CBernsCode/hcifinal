@@ -1,6 +1,8 @@
 # Protostar
 An application for rapidly prototyping VR interfaces. 
 
+By Chris Berns & Albara Mehene
+
 ## Goals
 - Fast
 - Easy to Learn 
