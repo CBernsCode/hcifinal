@@ -24,7 +24,6 @@ class PSButton extends Component {
           height: "auto"
         },
         material: {
-          color: vals.color ? vals.color : "#ff8800",
           opacity: vals.opacity ? vals.opacity : "0",
         },
         position: {
@@ -32,14 +31,13 @@ class PSButton extends Component {
           y: vals.ypos ? vals.ypos : 1,
           z: vals.dist ? vals.dist : -1,
         },
-        xdimm: 1,
-        ydimm: 1,
-        zdimm: 1,
+        xdimm: 10,
+        ydimm: 10,
+        zdimm: 10,
         rotation: vals.rotation ? vals.rotation : "90 0 0",
         children: {
           "ui-button": `color: ${vals.color ? vals.color : "#000"}`,
           material: {
-            color: vals.color ? vals.color : "#ff8800",
             opacity: vals.opacity ? vals.opacity : "1",
           },
           position: {
@@ -47,10 +45,10 @@ class PSButton extends Component {
             y: 0,
             z: -1,
           },
-          // we want the plan very small and the button to compensate for the small plane
-          xdimm: vals.xdimm ? vals.xdimm * 100 : 10000,
-          ydimm: vals.ydimm ? vals.ydimm * 100 : 10000,
-          zdimm: vals.zdimm ? vals.zdimm * 100 : 10000,
+          // we want the plane very small and the button to compensate for the small plane
+          xdimm: vals.xdimm ? vals.xdimm * 1000 : 100000,
+          ydimm: vals.ydimm ? vals.ydimm * 1000 : 100000,
+          zdimm: vals.zdimm ? vals.zdimm * 1000 : 100000,
           color: vals.color ? vals.color : "#ff0000",
         }
       };
@@ -156,7 +154,7 @@ class PSButton extends Component {
       <div>
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Adds a Clickable button to the scene</Modal.Title>
+            <Modal.Title>Adds a Clickable button to the scene. Be sure not to interfere with the view. Usable range is .5 to 1 meter.</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             {this.form()}
@@ -165,7 +163,7 @@ class PSButton extends Component {
       </div>
     );
   }
-  
+
   render() {
     return (
       <div id="text-button" className="btn-group">

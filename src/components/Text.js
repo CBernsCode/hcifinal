@@ -40,7 +40,6 @@ class PSText extends Component {
           width: vals.width ? vals.width : 10,
         },
       };
-      window.display = newObj;;
       let arr = this.state.prevValues.concat(newObj);;
       this.props.render(JSON.stringify(this.state.submittedValues), newObj);;
       this.setState({
@@ -157,7 +156,7 @@ class PSText extends Component {
         </Button>
         {this.displayForm()}
       </div>
-    );;
+    );
   }
 }
 

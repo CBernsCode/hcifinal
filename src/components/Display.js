@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { Form, Text } from 'react-form';
-import { Button, Modal } from 'react-bootstrap';
+import React, {Component} from 'react';
+import {Form, Text} from 'react-form';
+import {Button, Modal} from 'react-bootstrap';
 
 class PSPlane extends Component {
   constructor() {
@@ -13,8 +13,8 @@ class PSPlane extends Component {
     };
   }
   handleClose = () => {
-    this.setState({ show: false })
-    let vals = this.state.submittedValues
+    this.setState({show: false});
+    let vals = this.state.submittedValues;    
     if (Object.keys(this.state.submittedValues).length !== 0) {
       let newObj = {
         type: "panel",
@@ -31,22 +31,22 @@ class PSPlane extends Component {
           y: vals.ypos ? vals.ypos : 0,
           z: vals.zpos ? vals.zpos : 1,
         },
-        xdimm: vals.xdimm ? vals.xdimm : 100,
-        ydimm: vals.ydimm ? vals.ydimm : 100,
+        xdimm: vals.xdimm ? vals.xdimm : 1000,
+        ydimm: vals.ydimm ? vals.ydimm : 1000,
         zdimm: 1,
         rotation: vals.rotation ? vals.rotation : "0 0 0",
       };
-      var arr = this.state.prevValues.concat(newObj);
+      let arr = this.state.prevValues.concat(newObj);
       this.props.render(JSON.stringify(this.state.submittedValues), newObj);
       this.setState({
         prevValues: arr,
         submittedValues: {}
       });
     }
-  }
+  };
   handleShow = () => {
-    this.setState({ show: true });
-  }
+    this.setState({show: true});
+  };
   textAndLabel(text, target) {
     return (
       <div>
@@ -115,11 +115,11 @@ class PSPlane extends Component {
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>Add a Display</Modal.Title>
-            Add a plane to mock a flat panel in the UI. The display will scale automatically as you increase or decrease the Z position. <br />
+            Add a plane for a flat panel in the UI. The display will scale automatically as you increase or decrease the Z position. <br />
           </Modal.Header>
           <Modal.Body>
             <Form onSubmit={submittedValues => {
-              this.setState({ submittedValues });
+              this.setState({submittedValues});
               this.handleClose();
             }}>
               {formApi => (

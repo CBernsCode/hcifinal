@@ -1,78 +1,79 @@
-import React, { Component } from 'react';
-import { Entity } from 'aframe-react';
-import PSForm from './Form'
+import React, {Component} from 'react';
+import {Entity} from 'aframe-react';
+import PSForm from './Form';
 
-const defaultCamPos = '0 0 4'
+const defaultCamPos = '0 0 4';
 
 class View extends Component {
   constructor() {
     super();
     this.state = {
+      environment: "preset: none",
       showKeyboard: false,
       showLogin: false,
       showForm: false,
-      environment: "preset: none",
       stats: false,
       vrBtn: false
     };
   }
 
   helper = (ent, id) => {
-    let scale = {}
+    let scale = {};
     if (ent.position && ent.position.z !== undefined) {
-      let scaleFactor = Math.abs(ent.position.z)
-      scale = this.scaleFun(ent.xdimm, ent.ydimm, ent.zdimm, scaleFactor < .5 ? .5 : scaleFactor)
+      let scaleFactor = Math.abs(ent.position.z);
+      scale = this.scaleFun(ent.xdimm, ent.ydimm, ent.zdimm, scaleFactor < .5 ? .5 : scaleFactor);
     }
 
-    let obj = { ...ent, ...scale };
+    let obj = {...ent, ...scale};
 
     // If there are children pull them off and map child entities first
-    if (obj.hasOwnProperty('children')) {
-      let children = []
-      children = children.concat(ent.children)
+    if (ent.hasOwnProperty('children')) {
+      let children = [];
+      children = children.concat(ent.children);
       delete obj.children;
       return (
-        <Entity {...obj}>
+        <Entity key={id} {...obj}>
           {children.map((it, index) => this.helper(it, index))}
         </Entity>
-      )
-    } else if (obj.hasOwnProperty('text')) {
-      try {
-        let textWidth = obj.text.width * Math.abs(obj.position.z)
-        obj.text.width = textWidth
-        return <Entity key={id} {...obj} />
+      );
+    } else if (ent.hasOwnProperty('text')) {
+      try {     
+        // delete obj.text.width
+        obj.text.width = ent.text.width * Math.abs(ent.position.z)
+        return <Entity key={id} {...obj} />;
       } catch (error) {
-        console.error("Text scaling error:" + error)
+        console.error("Text scaling error:" + error);
       }
     }
     else {
       return <Entity key={id} {...obj} />;
     }
-  }
+  };
 
   scaleFun = (x, y, z, scale) => {
     return {
       scale:
-        `${x ? (x / 100) * scale : 1} 
-          ${y ? (y / 100) * scale : 1} 
-          ${z ? (z / 100) * scale : 1}`
-    }
-  }
+        `${x ? (x / 1000) * scale : 1} 
+          ${y ? (y / 1000) * scale : 1} 
+          ${z ? (z / 1000) * scale : 1}`
+    };
+  };
 
+  // Keyboard is way below the scene, this moves it into view
   componentDidMount = () => {
-    let el = document.querySelector('a-keyboard')
+    let el = document.querySelector('a-keyboard');
     if (el) {
-      el.setAttribute('position', { x: -1, y: -0.5, z: -1 });
+      el.setAttribute('position', {x: -1, y: -0.5, z: -1});
     }
-  }
+  };
 
   environmentChange = (event) => {
-    this.setState({ environment: event.target.value });
-  }
+    this.setState({environment: event.target.value});
+  };
 
   environmentOpts = () => {
     return (
-      <div className="form-horizontal" style={{ paddingTop: "10" }}>
+      <div className="form-horizontal" style={{paddingTop: "10"}}>
         <label className="col-xs-4 control-label" htmlFor="env">Environment</label>
         <div className="col-xs-3" >
           <select name="env" className="form-control" value={this.state.environment} onChange={this.environmentChange}>
@@ -86,30 +87,32 @@ class View extends Component {
           </select>
         </div>
       </div>
-    )
-  }
+    );
+  };
 
   enviroment = () => {
     return <a-entity id="env" position="0 -2 0" environment={this.state.environment}></a-entity>
   }
 
   toggleKeyboard = () => {
-    this.setState({ showKeyboard: !this.state.showKeyboard })
-  }
+    this.setState({showKeyboard: !this.state.showKeyboard});
+  };
 
   toggleLogin = () => {
-    this.setState({ showLogin: !this.state.showLogin })
-  }
+    this.setState({showLogin: !this.state.showLogin});
+  };
 
   toggleForm = () => {
-    this.setState({ showForm: !this.state.showForm })
-  }
+    this.setState({showForm: !this.state.showForm});
+  };
+
   toggleStats = () => {
-    this.setState({ stats: !this.state.stats })
-  }
+    this.setState({stats: !this.state.stats});
+  };
+
   toggleVrBtns = () => {
-    this.setState({ vrBtn: !this.state.vrBtn })
-  }
+    this.setState({vrBtn: !this.state.vrBtn});
+  };
 
   vrBtns = () => {
     if (this.state.vrBtn) {
@@ -123,11 +126,11 @@ class View extends Component {
       return null;
     }
 
-  }
+  };
 
   resetCamera = () => {
-    document.getElementById('cam').setAttribute('position', defaultCamPos)
-  }
+    document.getElementById('cam').setAttribute('position', defaultCamPos);
+  };
 
   toggles = () => {
     return (
@@ -141,16 +144,16 @@ class View extends Component {
           <button onClick={this.toggleVrBtns} type="button" className="btn btn-default">Toggle VR Buttons </button>
         </div>
       </div>
-    )
-  }
+    );
+  };
 
   render() {
     let objs = [];
     if (this.props.objects) {
       objs = this.props.objects;
     }
-    const form = <PSForm position="1 0.5 -2.5" width="4" height="2.5" radius="0.05" rotation="0 -20 0" scale="0.5 0.5 0.5" />
-    const keyboard = <a-keyboard id="keyboard" is-open="true" physical-keyboard="true" ></a-keyboard>
+    const form = <PSForm position="1 0.5 -2.5" width="4" height="2.5" radius="0.05" rotation="0 -20 0" scale="0.5 0.5 0.5" />;
+    const keyboard = <a-keyboard id="keyboard" is-open="true" physical-keyboard="true" ></a-keyboard>;
     return (
       <div id='scene' className='col-lg-8'>
         <a-scene embedded stats={this.state.stats} >
