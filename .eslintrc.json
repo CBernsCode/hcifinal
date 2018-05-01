@@ -1,0 +1,60 @@
+{
+    "parser": "babel-eslint",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "codeFrame": false,
+            "allowImportExportEverywhere": true,
+            "arrowFunctions": true,
+            "binaryLiterals": true,
+            "blockBindings": true,
+            "classes": true,
+            "defaultParams": true,
+            "destructuring": true,
+            "forOf": true,
+            "generators": true,
+            "modules": true,
+            "objectLiteralComputedProperties": true,
+            "objectLiteralDuplicateProperties": true,
+            "objectLiteralShorthandMethods": true,
+            "objectLiteralShorthandProperties": true,
+            "octalLiterals": true,
+            "regexUFlag": true,
+            "regexYFlag": true,
+            "spread": true,
+            "superInFunctions": true,
+            "templateStrings": true,
+            "unicodeCodePointEscapes": true,
+            "globalReturn": true,
+            "jsx": true
+        },
+        "sourceType": "module"
+    },
+    "env": {
+        "browser": true,
+        "commonjs": true,
+        "es6": true,
+        "node": true
+    },
+    "plugins": [
+        "react",
+        "babel"
+    ],
+    "rules": {
+        "babel/new-cap": 1,
+        "babel/no-invalid-this": 1,
+        "babel/object-curly-spacing": 1,
+        "babel/semi": 1,
+        "no-const-assign": "warn",
+        "no-this-before-super": "warn",
+        "no-undef": "warn",
+        "no-unreachable": "warn",
+        "no-unused-vars": "warn",
+        "constructor-super": "warn",
+        "valid-typeof": "warn",
+        "no-var": 2,
+        "react/jsx-uses-react": 2, 
+        "react/no-did-mount-set-state": 2, 
+        "react/no-did-update-set-state": 2,
+        "react/jsx-uses-vars": 2
+    }
+}

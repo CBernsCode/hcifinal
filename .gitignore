@@ -21,6 +21,5 @@ yarn-debug.log*
 yarn-error.log*
 .vscode
 /templates
-.eslintrc.json
 package-lock.json
 /stored
